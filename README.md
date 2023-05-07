@@ -14,6 +14,9 @@ Dev Pack for Salesforce is a collection of useful VS Code extensions for Salesfo
 - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 - [VSCode Icons](https://marketplace.visualstudio.com/items?itemName=vscode-icons-team.vscode-icons)
 - [One Dark Pro Theme](https://marketplace.visualstudio.com/items?itemName=zhuangtongfa.Material-theme)
+- [Better Comments](https://marketplace.visualstudio.com/items?itemName=aaron-bond.better-comments)
+- [Indent Rainbow](https://marketplace.visualstudio.com/items?itemName=oderwat.indent-rainbow)
+- [Apex PMD](https://marketplace.visualstudio.com/items?itemName=chuckjonas.apex-pmd)
 
 ## Installation
 
@@ -26,3 +29,11 @@ Dev Pack for Salesforce is a collection of useful VS Code extensions for Salesfo
 ## Usage
 
 After installing Dev Pack for Salesforce, you will have access to all the included extensions. Simply open a Salesforce project and start developing!
+
+## License
+
+This extension pack is licensed under the MIT License. See the LICENSE file for more information.
+
+## Contributing
+
+Contributions are welcome! If you'd like to contribute to this project, please open an issue or a pull request on GitHub.

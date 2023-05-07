@@ -26,7 +26,10 @@
     "dbaeumer.vscode-eslint",
     "vscode-icons-team.vscode-icons",
     "salesforce.salesforcedx-vscode-core",
-    "zhuangtongfa.material-theme"
+    "zhuangtongfa.material-theme",
+    "aaron-bond.better-comments",
+    "oderwat.indent-rainbow",
+    "chuckjonas.apex-pmd"
   ],
   "repository": {
     "type": "git",

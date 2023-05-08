@@ -1,6 +1,6 @@
 # Dev Pack for Salesforce
 
-Dev Pack for Salesforce is a collection of useful VS Code extensions for Salesforce development.
+Dev Pack for Salesforce is a collection of useful VS Code extensions for Salesforce development. The pack includes extensions for Apex, Lightning Web Components (LWC), SOQL queries, and general development features.
 
 ## Included Extensions
 

@@ -18,6 +18,7 @@ Dev Pack for Salesforce is a collection of useful VS Code extensions for Salesfo
 - [Indent Rainbow](https://marketplace.visualstudio.com/items?itemName=oderwat.indent-rainbow)
 - [Apex PMD](https://marketplace.visualstudio.com/items?itemName=chuckjonas.apex-pmd)
 - [Apex Log Analyzer](https://marketplace.visualstudio.com/items?itemName=financialforce.lana)
+- [TODO Highlight](https://marketplace.visualstudio.com/items?itemName=wayou.vscode-todo-highlight)
 
 ## Installation
 

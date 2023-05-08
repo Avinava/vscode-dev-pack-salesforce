@@ -30,7 +30,8 @@
     "aaron-bond.better-comments",
     "oderwat.indent-rainbow",
     "chuckjonas.apex-pmd",
-    "financialforce.lana"
+    "financialforce.lana",
+    "wayou.vscode-todo-highlight"
   ],
   "repository": {
     "type": "git",

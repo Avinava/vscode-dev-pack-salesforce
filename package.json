@@ -2,7 +2,7 @@
   "name": "dev-pack-salesforce",
   "displayName": "Dev Pack for Salesforce",
   "description": "A collection of useful VS Code extensions for Salesforce development",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "publisher": "avidev9",
   "engines": {
     "vscode": "^1.61.0"
@@ -31,7 +31,8 @@
     "oderwat.indent-rainbow",
     "chuckjonas.apex-pmd",
     "financialforce.lana",
-    "wayou.vscode-todo-highlight"
+    "wayou.vscode-todo-highlight",
+    "streetsidesoftware.code-spell-checker"
   ],
   "repository": {
     "type": "git",

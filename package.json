@@ -33,7 +33,8 @@
     "financialforce.lana",
     "wayou.vscode-todo-highlight",
     "streetsidesoftware.code-spell-checker",
-    "ForceConfigControl.lightningflowscanner"
+    "ForceConfigControl.lightningflowscanner",
+    "salesforce.sfdx-code-analyzer-vscode"
   ],
   "repository": {
     "type": "git",

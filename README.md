@@ -20,6 +20,8 @@ Dev Pack for Salesforce is a collection of useful VS Code extensions for Salesfo
 - [Apex Log Analyzer](https://marketplace.visualstudio.com/items?itemName=financialforce.lana)
 - [TODO Highlight](https://marketplace.visualstudio.com/items?itemName=wayou.vscode-todo-highlight)
 - [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
+- [Lightning Flow Scanner](https://marketplace.visualstudio.com/items?itemName=ForceConfigControl.lightningflowscanner)
+- [Salesforce Code Analyzer](https://marketplace.visualstudio.com/items?itemName=salesforce.sfdx-code-analyzer-vscode)
 
 ## Installation
 

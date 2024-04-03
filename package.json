@@ -2,8 +2,11 @@
   "name": "dev-pack-salesforce",
   "displayName": "Dev Pack for Salesforce",
   "description": "A collection of useful VS Code extensions for Salesforce development",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "publisher": "avidev9",
+  "scripts": {
+    "package": "npx vsce package"
+  },
   "engines": {
     "vscode": "^1.61.0"
   },
@@ -16,6 +19,10 @@
     "extension",
     "pack"
   ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./extension.js",
   "extensionPack": [
     "salesforce.salesforcedx-vscode-apex",
     "salesforce.salesforcedx-vscode-lwc",
@@ -40,5 +47,12 @@
     "type": "git",
     "url": "https://github.com/Avinava/vscode-dev-pack-salesforce.git"
   },
-  "icon": "icon.jpeg"
+  "icon": "icon.jpeg",
+  "devDependencies": {
+    "@vscode/vsce": "^2.24.0",
+    "eslint": "^6.1.0",
+    "tslint": "^5.12.1",
+    "typescript": "^3.8.3",
+    "vscode": "^1.1.37"
+  }
 }

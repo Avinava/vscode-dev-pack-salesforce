@@ -21,8 +21,9 @@ function activate(context) {
 
   // Register the command to force check packages
   let disposable = vscode.commands.registerCommand('dev-pack-salesforce.forceCheckPackages', () => {
-    vscode.window.showInformationMessage(`${EXTENSION_NAME}: Checking and installing required packages...`);
+    vscode.window.showInformationMessage(`${EXTENSION_NAME}: Checking and installing required packages and plugins...`);
     context.globalState.update('dev-pack-salesforce.packages-checked', false);
+    context.globalState.update('dev-pack-salesforce.sfdx-scanner-checked', false);
     checkAndInstallNodePackages(context);
   });
 
@@ -46,6 +47,7 @@ function checkAndInstallNodePackages(context) {
           vscode.window.showInformationMessage(`${EXTENSION_NAME}: Required packages are already installed.`);
           context.globalState.update('dev-pack-salesforce.packages-checked', true);
         }
+        checkAndInstallSfdxScanner(context);
         return;
       }
 
@@ -65,6 +67,7 @@ function checkAndInstallNodePackages(context) {
           vscode.window.showInformationMessage(`${EXTENSION_NAME}: All required packages are already installed.`);
           context.globalState.update('dev-pack-salesforce.packages-checked', true);
         }
+        checkAndInstallSfdxScanner(context);
         return;
       }
 
@@ -81,10 +84,42 @@ function checkAndInstallNodePackages(context) {
               return;
             }
             vscode.window.showInformationMessage(`${EXTENSION_NAME}: Successfully installed npm packages: ${missingPackages.join(', ')}`);
+            checkAndInstallSfdxScanner(context);
           });
         }
       });
     });
+  });
+}
+
+function checkAndInstallSfdxScanner(context) {
+  exec('sf plugins', (error, stdout, stderr) => {
+    if (error) {
+      vscode.window.showErrorMessage(`${EXTENSION_NAME}: Failed to check Salesforce CLI plugins: ${stderr}`);
+      return;
+    }
+
+    if (!stdout.includes('@salesforce/sfdx-scanner')) {
+      vscode.window.showInformationMessage(
+        `${EXTENSION_NAME}: The @salesforce/sfdx-scanner plugin is not installed. Do you want to install it?`,
+        'Yes', 'No'
+      ).then(selection => {
+        if (selection === 'Yes') {
+          exec('sf plugins:install @salesforce/sfdx-scanner', (error, stdout, stderr) => {
+            if (error) {
+              vscode.window.showErrorMessage(`${EXTENSION_NAME}: Failed to install SFDX scanner plugin: ${stderr}`);
+              return;
+            }
+            vscode.window.showInformationMessage(`${EXTENSION_NAME}: Successfully installed SFDX scanner plugin.`);
+          });
+        }
+      });
+    } else {
+      if (!context.globalState.get('dev-pack-salesforce.sfdx-scanner-checked')) {
+        vscode.window.showInformationMessage(`${EXTENSION_NAME}: The @salesforce/sfdx-scanner plugin is already installed.`);
+        context.globalState.update('dev-pack-salesforce.sfdx-scanner-checked', true);
+      }
+    }
   });
 }
 

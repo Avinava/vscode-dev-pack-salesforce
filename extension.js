@@ -116,7 +116,7 @@ function checkAndInstallSfdxScanner(context) {
       });
     } else {
       if (!context.globalState.get('dev-pack-salesforce.sfdx-scanner-checked')) {
-        vscode.window.showInformationMessage(`${EXTENSION_NAME}: The @salesforce/sfdx-scanner plugin is already installed.`);
+        vscode.window.showInformationMessage(`${EXTENSION_NAME}: The @salesforce/sfdx-scanner plugin is already installed. SFDX setup is complete.`);
         context.globalState.update('dev-pack-salesforce.sfdx-scanner-checked', true);
       }
     }

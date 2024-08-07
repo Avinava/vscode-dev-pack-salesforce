@@ -32,6 +32,30 @@ Dev Pack for Salesforce is a collection of useful VS Code extensions for Salesfo
 4. Click on Install
 5. Reload Visual Studio Code to complete the installation.
 
+## Automatic Package Detection and Installation
+
+Dev Pack for Salesforce automatically detects and prompts you to install the following required npm packages if they are not already installed:
+
+- `@salesforce/cli`
+- `prettier`
+- `@prettier/plugin-xml`
+- `prettier-plugin-apex`
+
+### Manual Trigger
+
+You can manually trigger the package installation process by running the following command:
+
+```json
+{
+  "command": "dev-pack-salesforce.forceCheckPackages",
+  "title": "Dev Pack for Salesforce: Install required node modules"
+}
+```
+
+To run this command:
+    - Open the Command Palette (View → Command Palette or Cmd+Shift+P).
+    - Type Dev Pack for Salesforce: Install required node modules and select it.
+
 ## Usage
 
 After installing Dev Pack for Salesforce, you will have access to all the included extensions. Simply open a Salesforce project and start developing!

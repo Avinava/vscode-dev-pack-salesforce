@@ -35,6 +35,45 @@ function activate(context) {
   });
 
   context.subscriptions.push(updateSettingsDisposable);
+
+  // Check for sfdx-project.json and update settings if enabled
+  checkForSfdxProjectAndAutoUpdateSettings(context);
+
+  // Check if autoUpdateSettings is true and if it's a new workspace folder
+  const config = vscode.workspace.getConfiguration('devPackSalesforce');
+  const autoUpdateSettings = config.get('autoUpdateSettings');
+  const isNewWorkspace = !context.globalState.get('dev-pack-salesforce.workspace-initialized');
+
+  if (autoUpdateSettings && isNewWorkspace) {
+    updateSettings();
+    context.globalState.update('dev-pack-salesforce.workspace-initialized', true);
+  }
+}
+
+function checkForSfdxProjectAndAutoUpdateSettings(context) {
+  const config = vscode.workspace.getConfiguration('devPackSalesforce');
+  const autoUpdateSettings = config.get('autoUpdateSettings');
+
+  if (autoUpdateSettings) {
+    vscode.workspace.findFiles('sfdx-project.json', '**/node_modules/**', 1).then(files => {
+      if (files.length > 0) {
+        updateSettings();
+      }
+    });
+  }
+
+  // Prompt user on first install
+  if (!context.globalState.get('dev-pack-salesforce.promptedForAutoUpdate')) {
+    vscode.window.showInformationMessage(
+      `${EXTENSION_NAME}: Do you want to enable auto-formatting for new projects?`,
+      'Yes', 'No'
+    ).then(selection => {
+      if (selection === 'Yes') {
+        config.update('autoUpdateSettings', true, vscode.ConfigurationTarget.Global);
+      }
+      context.globalState.update('dev-pack-salesforce.promptedForAutoUpdate', true);
+    });
+  }
 }
 
 function checkAndInstallNodePackages(context) {
@@ -142,7 +181,7 @@ function updateSettings() {
     "editor.formatOnSave": true,
     "editor.formatOnPaste": true,
     "editor.detectIndentation": false,
-    "editor.tabSize": 2
+    "editor.tabSize": 2,
   };
 
   config.update('[apex]', apexSettings, vscode.ConfigurationTarget.Workspace);

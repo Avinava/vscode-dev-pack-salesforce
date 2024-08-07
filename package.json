@@ -2,7 +2,7 @@
   "name": "dev-pack-salesforce",
   "displayName": "Dev Pack for Salesforce",
   "description": "A collection of useful VS Code extensions for Salesforce development",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "publisher": "avidev9",
   "scripts": {
     "package": "npx vsce package"
@@ -57,6 +57,17 @@
     "vscode": "^1.1.37"
   },
   "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "Dev Pack for Salesforce",
+      "properties": {
+        "devPackSalesforce.autoUpdateSettings": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically update prettier settings for new sfdx projects"
+        }
+      }
+    },
     "commands": [
       {
         "command": "dev-pack-salesforce.forceCheckPackages",

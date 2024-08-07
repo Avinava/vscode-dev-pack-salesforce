@@ -61,6 +61,10 @@
       {
         "command": "dev-pack-salesforce.forceCheckPackages",
         "title": "Dev Pack for Salesforce: Install required node modules"
+      },
+      {
+        "command": "dev-pack-salesforce.updateSettings",
+        "title": "Dev Pack for Salesforce: Update prettier formatting settings"
       }
     ]
   }

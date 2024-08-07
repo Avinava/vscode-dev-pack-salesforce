@@ -28,6 +28,13 @@ function activate(context) {
   });
 
   context.subscriptions.push(disposable);
+
+  // Register the command to update settings.json
+  let updateSettingsDisposable = vscode.commands.registerCommand('dev-pack-salesforce.updateSettings', () => {
+    updateSettings();
+  });
+
+  context.subscriptions.push(updateSettingsDisposable);
 }
 
 function checkAndInstallNodePackages(context) {
@@ -121,6 +128,27 @@ function checkAndInstallSfdxScanner(context) {
       }
     }
   });
+}
+
+function updateSettings() {
+  const config = vscode.workspace.getConfiguration();
+  const apexSettings = {
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "editor.detectIndentation": false,
+    "editor.tabSize": 2
+  };
+  const javascriptSettings = {
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "editor.detectIndentation": false,
+    "editor.tabSize": 2
+  };
+
+  config.update('[apex]', apexSettings, vscode.ConfigurationTarget.Workspace);
+  config.update('[javascript]', javascriptSettings, vscode.ConfigurationTarget.Workspace);
+
+  vscode.window.showInformationMessage(`${EXTENSION_NAME}: Updated prettier settings for Apex and JavaScript.`);
 }
 
 exports.activate = activate;

@@ -70,7 +70,7 @@ function checkAndInstallNodePackages(context) {
 
       // Prompt user for confirmation
       vscode.window.showInformationMessage(
-        `${EXTENSION_NAME}: The following packages will be installed globally: ${missingPackages.join(', ')}. Do you want to proceed?`,
+        `${EXTENSION_NAME}: The following node packages will be installed globally: ${missingPackages.join(', ')}. Do you want to proceed?`,
         'Yes', 'No'
       ).then(selection => {
         if (selection === 'Yes') {

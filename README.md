@@ -32,6 +32,15 @@ Dev Pack for Salesforce is a collection of useful VS Code extensions for Salesfo
 4. Click on Install
 5. Reload Visual Studio Code to complete the installation.
 
+## Automatic Theme and Icon Setup
+
+On the first installation, Dev Pack for Salesforce automatically sets the following themes and icons:
+
+- Icon theme: `vscode-icons`
+- Color theme: `One Dark Pro Darker`
+
+This setup is only done the first time the extension is installed. Feel free to change after the initial setup.
+
 ## Automatic Package Detection and Installation
 
 Dev Pack for Salesforce automatically detects and prompts you to install the following required npm packages if they are not already installed:

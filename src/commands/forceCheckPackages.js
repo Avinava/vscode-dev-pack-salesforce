@@ -1,11 +1,11 @@
 const vscode = require("vscode");
-const NodePackageManager = require("./nodePackageManager");
-const { EXTENSION_NAME } = require("../utils/constants");
+const NodePackageManager = require("./NodePackageManager");
+const CommonUtils = require("../utils/CommonUtils");
 
 class ForceCheckPackages {
   static async checkPackages(context) {
-    vscode.window.showInformationMessage(
-      `${EXTENSION_NAME}: Checking and installing required packages and plugins...`
+    CommonUtils.showInformationMessage(
+      "Checking and installing required packages and plugins..."
     );
     context.globalState.update("dev-pack-salesforce.packages-checked", false);
     context.globalState.update(

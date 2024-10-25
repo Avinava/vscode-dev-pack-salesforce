@@ -1,5 +1,5 @@
 const vscode = require("vscode");
-const WorkspaceSettings = require("../commands/workspaceSettings");
+const WorkspaceSettings = require("../commands/WorkspaceSettings");
 const { EXTENSION_NAME } = require("./constants");
 
 class SettingsManager {

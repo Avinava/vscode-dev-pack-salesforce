@@ -1,7 +1,7 @@
 const vscode = require("vscode");
-const { exec } = require("child_process");
 const { EXTENSION_NAME, REQUIRED_PACKAGES } = require("../utils/constants");
-const SfdxScannerInstaller = require("./sfdxScannerInstaller");
+const SfdxScannerInstaller = require("./SfdxScannerInstaller");
+const CommonUtils = require("../utils/CommonUtils");
 
 class NodePackageManager {
   static async managePackages(context) {
@@ -9,8 +9,10 @@ class NodePackageManager {
       await this.checkNodeInstallation();
       const missingPackages = await this.checkRequiredPackages(context);
       if (missingPackages.length > 0) {
-        const userConfirmed = await this.promptForPackageInstallation(
-          missingPackages
+        const userConfirmed = await CommonUtils.promptForConfirmation(
+          `The following node packages will be installed globally: ${missingPackages.join(
+            ", "
+          )}. Do you want to proceed?`
         );
         if (userConfirmed) {
           await this.installMissingPackages(missingPackages);
@@ -22,66 +24,54 @@ class NodePackageManager {
     }
   }
 
-  static checkNodeInstallation() {
-    return new Promise((resolve, reject) => {
-      exec("node -v", (error, stdout, stderr) => {
-        if (error) {
-          reject(
-            `${EXTENSION_NAME}: Node.js is not installed. Please install Node.js to use this extension.`
-          );
-        } else {
-          resolve();
-        }
-      });
-    });
+  static async checkNodeInstallation() {
+    try {
+      await CommonUtils.execCommand("node -v");
+    } catch (error) {
+      throw new Error(
+        `${EXTENSION_NAME}: Node.js is not installed. Please install Node.js to use this extension.`
+      );
+    }
   }
 
-  static checkRequiredPackages(context) {
-    return new Promise((resolve, reject) => {
+  static async checkRequiredPackages(context) {
+    try {
       const packagesToCheck = REQUIRED_PACKAGES;
-      const packagesToInstall = REQUIRED_PACKAGES;
-
-      exec(
-        `npm list -g ${packagesToCheck.join(" ")}`,
-        (error, stdout, stderr) => {
-          if (!error) {
-            if (
-              !context.globalState.get("dev-pack-salesforce.packages-checked")
-            ) {
-              vscode.window.showInformationMessage(
-                `${EXTENSION_NAME}: Required packages are already installed.`
-              );
-              context.globalState.update(
-                "dev-pack-salesforce.packages-checked",
-                true
-              );
-            }
-            resolve([]);
-          } else {
-            const missingPackages = this.getMissingPackages(
-              stdout,
-              packagesToInstall
-            );
-            if (missingPackages.length === 0) {
-              if (
-                !context.globalState.get("dev-pack-salesforce.packages-checked")
-              ) {
-                vscode.window.showInformationMessage(
-                  `${EXTENSION_NAME}: All required packages are already installed.`
-                );
-                context.globalState.update(
-                  "dev-pack-salesforce.packages-checked",
-                  true
-                );
-              }
-              resolve([]);
-            } else {
-              resolve(missingPackages);
-            }
-          }
-        }
+      const stdout = await CommonUtils.execCommand(
+        `npm list -g ${packagesToCheck.join(" ")}`
       );
-    });
+
+      if (!context.globalState.get("dev-pack-salesforce.packages-checked")) {
+        CommonUtils.showInformationMessage(
+          "Required packages are already installed."
+        );
+        context.globalState.update(
+          "dev-pack-salesforce.packages-checked",
+          true
+        );
+      }
+
+      const missingPackages = this.getMissingPackages(stdout, packagesToCheck);
+      return missingPackages;
+    } catch (error) {
+      const stdout = error.message;
+      const missingPackages = this.getMissingPackages(
+        stdout,
+        REQUIRED_PACKAGES
+      );
+      if (missingPackages.length === 0) {
+        if (!context.globalState.get("dev-pack-salesforce.packages-checked")) {
+          CommonUtils.showInformationMessage(
+            "All required packages are already installed."
+          );
+          context.globalState.update(
+            "dev-pack-salesforce.packages-checked",
+            true
+          );
+        }
+      }
+      return missingPackages;
+    }
   }
 
   static getMissingPackages(stdout, packagesToInstall) {
@@ -100,40 +90,18 @@ class NodePackageManager {
     return missingPackages;
   }
 
-  static promptForPackageInstallation(missingPackages) {
-    return new Promise((resolve) => {
-      vscode.window
-        .showInformationMessage(
-          `${EXTENSION_NAME}: The following node packages will be installed globally: ${missingPackages.join(
-            ", "
-          )}. Do you want to proceed?`,
-          "Yes",
-          "No"
-        )
-        .then((selection) => {
-          resolve(selection === "Yes");
-        });
-    });
-  }
-
-  static installMissingPackages(missingPackages) {
-    return new Promise((resolve, reject) => {
+  static async installMissingPackages(missingPackages) {
+    try {
       const installCommand = `npm install -g ${missingPackages.join(" ")}`;
-      exec(installCommand, (error, stdout, stderr) => {
-        if (error) {
-          reject(
-            `${EXTENSION_NAME}: Failed to install npm packages: ${stderr}`
-          );
-        } else {
-          vscode.window.showInformationMessage(
-            `${EXTENSION_NAME}: Successfully installed npm packages: ${missingPackages.join(
-              ", "
-            )}`
-          );
-          resolve();
-        }
-      });
-    });
+      await CommonUtils.execCommand(installCommand);
+      CommonUtils.showInformationMessage(
+        `Successfully installed npm packages: ${missingPackages.join(", ")}`
+      );
+    } catch (error) {
+      throw new Error(
+        `${EXTENSION_NAME}: Failed to install npm packages: ${error.message}`
+      );
+    }
   }
 }
 

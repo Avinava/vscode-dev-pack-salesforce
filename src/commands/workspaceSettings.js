@@ -1,12 +1,25 @@
 const vscode = require("vscode");
-const {
-  EXTENSION_NAME,
-  APEX_SETTINGS,
-  JAVASCRIPT_SETTINGS,
-} = require("../utils/constants");
-const BetterCommentsUpdater = require("./betterComments");
+const { APEX_SETTINGS, JAVASCRIPT_SETTINGS } = require("../utils/constants");
+const BetterCommentsUpdater = require("./BetterComments");
+const CommonUtils = require("../utils/CommonUtils");
 
-class Workspace {
+class WorkspaceSettings {
+  static checkAndUpdateSettings(context) {
+    const config = vscode.workspace.getConfiguration("devPackSalesforce");
+    const autoUpdateSettings = config.get("autoUpdateSettings");
+    const isNewWorkspace = !context.globalState.get(
+      "dev-pack-salesforce.workspace-initialized"
+    );
+
+    if (autoUpdateSettings && isNewWorkspace) {
+      this.updateSettings();
+      context.globalState.update(
+        "dev-pack-salesforce.workspace-initialized",
+        true
+      );
+    }
+  }
+
   static updateSettings() {
     const config = vscode.workspace.getConfiguration();
 
@@ -23,10 +36,10 @@ class Workspace {
 
     BetterCommentsUpdater.updateSettings();
 
-    vscode.window.showInformationMessage(
-      `${EXTENSION_NAME}: Updated settings for Apex and JavaScript`
+    CommonUtils.showInformationMessage(
+      "Updated settings for Apex and JavaScript"
     );
   }
 }
 
-module.exports = Workspace;
+module.exports = WorkspaceSettings;

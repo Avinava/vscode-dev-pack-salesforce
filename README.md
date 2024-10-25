@@ -1,14 +1,17 @@
 # Dev Pack for Salesforce
 
+<img src="./assets/dev-tools-icon.jpg" height="150px"/>
+
 Dev Pack for Salesforce is a collection of useful VS Code extensions for Salesforce development. The pack includes extensions for Apex, Lightning Web Components (LWC), SOQL queries, and general development features.
 
 ## Included Extensions
 
-- [Salesforce Extension Pack](https://marketplace.visualstudio.com/items?itemName=salesforce.salesforcedx-vscode-extension-pack)
-- [Salesforce Apex](https://marketplace.visualstudio.com/items?itemName=salesforce.salesforcedx-vscode-apex)
-- [Salesforce Lightning Web Components](https://marketplace.visualstudio.com/items?itemName=salesforce.salesforcedx-vscode-lwc)
-- [Salesforce SOQL](https://marketplace.visualstudio.com/items?itemName=salesforce.salesforcedx-vscode-soql)
-- [Salesforce Core](https://marketplace.visualstudio.com/items?itemName=salesforce.salesforcedx-vscode-core)
+- [Salesforce Extension Pack](https://marketplace.visualstudio.com/items?itemName=salesforce.salesforcedx-vscode)
+  - [Salesforce Apex](https://marketplace.visualstudio.com/items?itemName=salesforce.salesforcedx-vscode-apex)
+  - [Salesforce Lightning Web Components](https://marketplace.visualstudio.com/items?itemName=salesforce.salesforcedx-vscode-lwc)
+  - [Salesforce SOQL](https://marketplace.visualstudio.com/items?itemName=salesforce.salesforcedx-vscode-soql)
+  - [Salesforce Core](https://marketplace.visualstudio.com/items?itemName=salesforce.salesforcedx-vscode-core)
+- [Agentforce for Developers](https://marketplace.visualstudio.com/items?itemName=salesforce.salesforcedx-einstein-gpt)
 - [Markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
 - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
@@ -16,9 +19,7 @@ Dev Pack for Salesforce is a collection of useful VS Code extensions for Salesfo
 - [One Dark Pro Theme](https://marketplace.visualstudio.com/items?itemName=zhuangtongfa.Material-theme)
 - [Better Comments](https://marketplace.visualstudio.com/items?itemName=aaron-bond.better-comments)
 - [Indent Rainbow](https://marketplace.visualstudio.com/items?itemName=oderwat.indent-rainbow)
-- [Apex PMD](https://marketplace.visualstudio.com/items?itemName=chuckjonas.apex-pmd)
 - [Apex Log Analyzer](https://marketplace.visualstudio.com/items?itemName=financialforce.lana)
-- [TODO Highlight](https://marketplace.visualstudio.com/items?itemName=wayou.vscode-todo-highlight)
 - [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
 - [Lightning Flow Scanner](https://marketplace.visualstudio.com/items?itemName=ForceConfigControl.lightningflowscanner)
 - [Salesforce Code Analyzer](https://marketplace.visualstudio.com/items?itemName=salesforce.sfdx-code-analyzer-vscode)
@@ -61,9 +62,7 @@ You can manually trigger the package installation process by running the followi
 }
 ```
 
-To run this command:
-    - Open the Command Palette (View → Command Palette or Cmd+Shift+P).
-    - Type Dev Pack for Salesforce: Install required node modules and select it.
+To run this command: - Open the Command Palette (View → Command Palette or Cmd+Shift+P). - Type Dev Pack for Salesforce: Install required node modules and select it.
 
 ## Usage
 

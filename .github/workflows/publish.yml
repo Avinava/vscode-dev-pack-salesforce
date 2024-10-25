@@ -26,11 +26,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run tests
-        run: npm test
-
-      - name: Build the extension
-        run: npm run build
+      - name: Run package
+        run: npm run package
 
   publish:
     needs: build

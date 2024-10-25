@@ -24,8 +24,7 @@
   ],
   "main": "./src/extension.js",
   "extensionPack": [
-    "salesforce.salesforcedx-vscode",
-    "salesforce.salesforcedx-einstein-gpt",
+    "salesforce.salesforcedx-vscode-expanded",
     "davidanson.vscode-markdownlint",
     "esbenp.prettier-vscode",
     "dbaeumer.vscode-eslint",
@@ -33,7 +32,6 @@
     "zhuangtongfa.material-theme",
     "aaron-bond.better-comments",
     "oderwat.indent-rainbow",
-    "financialforce.lana",
     "streetsidesoftware.code-spell-checker",
     "ForceConfigControl.lightningflowscanner",
     "salesforce.sfdx-code-analyzer-vscode",

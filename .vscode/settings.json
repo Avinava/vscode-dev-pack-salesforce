@@ -1,0 +1,7 @@
+{
+    "javascript.format.enable": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "editor.detectIndentation": false,
+    "editor.tabSize": 2 
+}

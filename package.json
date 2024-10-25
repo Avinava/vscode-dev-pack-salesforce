@@ -22,7 +22,7 @@
   "activationEvents": [
     "onStartupFinished"
   ],
-  "main": "./extension.js",
+  "main": "./src/extension.js",
   "extensionPack": [
     "salesforce.salesforcedx-vscode",
     "davidanson.vscode-markdownlint",

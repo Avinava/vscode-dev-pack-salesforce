@@ -71,6 +71,10 @@
       {
         "command": "dev-pack-salesforce.updateSettings",
         "title": "Dev Pack for Salesforce: Update prettier formatting settings"
+      },
+      {
+        "command": "dev-pack-salesforce.updateBetterCommentsSettings",
+        "title": "Dev Pack for Salesforce: Update better comments settings"
       }
     ]
   }

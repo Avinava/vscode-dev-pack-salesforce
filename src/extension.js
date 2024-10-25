@@ -1,10 +1,10 @@
 const vscode = require("vscode");
 const { EXTENSION_NAME } = require("./utils/constants");
-const nodePackageManager = require("./commands/nodePackageManager");
-const settingsManager = require("./utils/settingsManager");
-const workspaceSettings = require("./commands/workspaceSettings");
-const updateBetterCommentsSettings = require("./commands/betterComments");
-const forceCheckPackages = require("./commands/forceCheckPackages");
+const NodePackageManager = require("./commands/nodePackageManager");
+const SettingsManager = require("./utils/settingsManager");
+const WorkspaceSettings = require("./commands/workspaceSettings");
+const BetterComments = require("./commands/betterComments");
+const ForceCheckPackages = require("./commands/forceCheckPackages");
 
 async function activate(context) {
   console.log(
@@ -12,9 +12,9 @@ async function activate(context) {
   );
 
   await setInitialTheme(context);
-  await nodePackageManager(context);
+  await NodePackageManager.managePackages(context);
   registerCommands(context);
-  await settingsManager(context);
+  await SettingsManager.manageSettings(context);
   await checkAndUpdateSettings(context);
 }
 
@@ -30,7 +30,7 @@ async function setInitialTheme(context) {
   }
 
   if (!context.globalState.get("dev-pack-salesforce.has-better-comments-set")) {
-    updateBetterCommentsSettings();
+    BetterComments.updateSettings();
     context.globalState.update(
       "dev-pack-salesforce.has-better-comments-set",
       true
@@ -43,7 +43,7 @@ function registerCommands(context) {
     vscode.commands.registerCommand(
       "dev-pack-salesforce.forceCheckPackages",
       () => {
-        forceCheckPackages(context);
+        ForceCheckPackages.checkPackages(context);
       }
     )
   );
@@ -52,7 +52,7 @@ function registerCommands(context) {
     vscode.commands.registerCommand(
       "dev-pack-salesforce.updateSettings",
       () => {
-        workspaceSettings();
+        WorkspaceSettings.updateSettings();
       }
     )
   );
@@ -61,7 +61,7 @@ function registerCommands(context) {
     vscode.commands.registerCommand(
       "dev-pack-salesforce.updateBetterCommentsSettings",
       () => {
-        updateBetterCommentsSettings();
+        BetterComments.updateSettings();
       }
     )
   );
@@ -75,7 +75,7 @@ async function checkAndUpdateSettings(context) {
   );
 
   if (autoUpdateSettings && isNewWorkspace) {
-    workspaceSettings();
+    WorkspaceSettings.updateSettings();
     context.globalState.update(
       "dev-pack-salesforce.workspace-initialized",
       true

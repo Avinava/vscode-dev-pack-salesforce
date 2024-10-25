@@ -40,6 +40,8 @@ On the first installation, Dev Pack for Salesforce automatically sets the follow
 - Icon theme: `vscode-icons`
 - Color theme: `One Dark Pro Darker`
 
+<img src="./assets/vscode-icons.png" height="250px"/>
+
 This setup is only done the first time the extension is installed. Feel free to change after the initial setup.
 
 ## Automatic Package Detection and Installation

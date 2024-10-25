@@ -6,6 +6,7 @@ const WorkspaceSettings = require("./commands/WorkspaceSettings");
 const BetterComments = require("./commands/BetterComments");
 const ForceCheckPackages = require("./commands/ForceCheckPackages");
 const InitialSetup = require("./utils/InitialSetup");
+const Sfdx = require("./commands/Sfdx");
 
 class Extension {
   constructor(context) {
@@ -48,6 +49,15 @@ class Extension {
         "dev-pack-salesforce.updateBetterCommentsSettings",
         () => {
           BetterComments.updateSettings();
+        }
+      )
+    );
+
+    this.context.subscriptions.push(
+      vscode.commands.registerCommand(
+        "dev-pack-salesforce.deleteApexLogs",
+        () => {
+          Sfdx.deleteApexLogs();
         }
       )
     );

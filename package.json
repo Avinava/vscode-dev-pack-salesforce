@@ -75,6 +75,11 @@
         "command": "dev-pack-salesforce.updateBetterCommentsSettings",
         "title": "Dev Pack for Salesforce: Update better comments settings",
         "shortTitle": "Update better comments settings"
+      },
+      {
+        "command": "dev-pack-salesforce.deleteApexLogs",
+        "title": "Dev Pack for Salesforce: Delete all apex logs",
+        "shortTitle": "Delete all apex logs"
       }
     ]
   }

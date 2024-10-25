@@ -33,7 +33,6 @@
     "aaron-bond.better-comments",
     "oderwat.indent-rainbow",
     "financialforce.lana",
-    "wayou.vscode-todo-highlight",
     "streetsidesoftware.code-spell-checker",
     "ForceConfigControl.lightningflowscanner",
     "salesforce.sfdx-code-analyzer-vscode",
@@ -66,15 +65,18 @@
     "commands": [
       {
         "command": "dev-pack-salesforce.forceCheckPackages",
-        "title": "Dev Pack for Salesforce: Install required node modules"
+        "title": "Dev Pack for Salesforce: Install required node modules",
+        "shortTitle": "Install required node modules"
       },
       {
         "command": "dev-pack-salesforce.updateSettings",
-        "title": "Dev Pack for Salesforce: Update prettier formatting settings"
+        "title": "Dev Pack for Salesforce: Update prettier formatting settings",
+        "shortTitle": "Update prettier settings"
       },
       {
         "command": "dev-pack-salesforce.updateBetterCommentsSettings",
-        "title": "Dev Pack for Salesforce: Update better comments settings"
+        "title": "Dev Pack for Salesforce: Update better comments settings",
+        "shortTitle": "Update better comments settings"
       }
     ]
   }

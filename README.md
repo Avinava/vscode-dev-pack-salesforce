@@ -51,7 +51,8 @@ This setup is only done the first time the extension is installed. Feel free to 
 
 ## Automatic Package Detection and Installation
 
-Dev Pack for Salesforce automatically detects and prompts you to install the following required npm packages if they are not already installed:
+The Dev Pack for Salesforce simplifies and automates the setup of your developer environment. Upon installation, the pack automatically detects and installs required npm packages, as long as Node.js is installed in your system. The required npm packages include:
+
 
 - `@salesforce/cli`
 - `prettier`

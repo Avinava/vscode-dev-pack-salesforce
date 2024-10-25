@@ -25,6 +25,7 @@
   "main": "./src/extension.js",
   "extensionPack": [
     "salesforce.salesforcedx-vscode",
+    "salesforce.salesforcedx-einstein-gpt",
     "davidanson.vscode-markdownlint",
     "esbenp.prettier-vscode",
     "dbaeumer.vscode-eslint",

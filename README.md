@@ -62,7 +62,65 @@ You can manually trigger the package installation process by running the followi
 }
 ```
 
-To run this command: - Open the Command Palette (View → Command Palette or Cmd+Shift+P). - Type Dev Pack for Salesforce: Install required node modules and select it.
+To run this command:
+
+- Open the Command Palette (View → Command Palette or Cmd+Shift+P).
+- Type Dev Pack for Salesforce: Install required node modules and select it.
+
+## Update Prettier Settings
+
+This command updates the Prettier settings for Apex and JavaScript files in your workspace which enables formatting using prettier and features like format on save.
+You can manually update the Prettier settings by running the following command:
+
+```json
+{
+  "command": "dev-pack-salesforce.updateSettings",
+  "title": "Dev Pack for Salesforce: Update prettier formatting settings"
+}
+```
+
+To run this command:
+
+- Open the Command Palette (View → Command Palette or Cmd+Shift+P).
+- Type Dev Pack for Salesforce: Update prettier formatting settings and select it.
+
+## Update Better Comments Settings
+
+This introduces some comment highlighting tags which helps improve readability.
+Try some of these:
+
+```apex
+// ? this is a question
+// > this is a highlighted note
+// ! this is an alert
+// // strike through the code
+// todo: this is a todo
+// fixme: this is a fixme
+// note: this is a note
+// deprecated: this is a deprecated
+// important: this is an important
+// # this is information
+// * this is a important note
+
+```
+
+<img src="./assets/better-comments.png"/>
+
+
+You can manually update the Better Comments settings by running the following command:
+
+```json
+{
+  "command": "dev-pack-salesforce.updateBetterCommentsSettings",
+  "title": "Dev Pack for Salesforce: Update better comments settings"
+}
+```
+
+To run this command:
+
+- Open the Command Palette (View → Command Palette or Cmd+Shift+P).
+- Type Dev Pack for Salesforce: Update better comments settings and select it.
+
 
 ## Usage
 

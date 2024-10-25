@@ -34,7 +34,6 @@
     "oderwat.indent-rainbow",
     "streetsidesoftware.code-spell-checker",
     "ForceConfigControl.lightningflowscanner",
-    "salesforce.sfdx-code-analyzer-vscode",
     "emilast.LogFileHighlighter"
   ],
   "repository": {

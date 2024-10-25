@@ -17,50 +17,38 @@ class Extension {
     console.log(
       `Congratulations, your extension "${EXTENSION_NAME}" is now active!`
     );
-
+    this.registerCommands();
     await InitialSetup.setup(this.context);
     await NodePackageManager.managePackages(this.context);
-    this.registerCommands();
     await SettingsManager.manageSettings(this.context);
     WorkspaceSettings.checkAndUpdateSettings(this.context);
   }
 
   registerCommands() {
-    this.context.subscriptions.push(
-      vscode.commands.registerCommand(
-        "dev-pack-salesforce.forceCheckPackages",
-        () => {
-          ForceCheckPackages.checkPackages(this.context);
-        }
-      )
-    );
+    const commands = [
+      {
+        command: "dev-pack-salesforce.forceCheckPackages",
+        callback: () => ForceCheckPackages.checkPackages(this.context),
+      },
+      {
+        command: "dev-pack-salesforce.updateSettings",
+        callback: () => WorkspaceSettings.updateSettings(),
+      },
+      {
+        command: "dev-pack-salesforce.updateBetterCommentsSettings",
+        callback: () => BetterComments.updateSettings(),
+      },
+      {
+        command: "dev-pack-salesforce.deleteApexLogs",
+        callback: () => Sfdx.deleteApexLogs(),
+      },
+    ];
 
-    this.context.subscriptions.push(
-      vscode.commands.registerCommand(
-        "dev-pack-salesforce.updateSettings",
-        () => {
-          WorkspaceSettings.updateSettings();
-        }
-      )
-    );
-
-    this.context.subscriptions.push(
-      vscode.commands.registerCommand(
-        "dev-pack-salesforce.updateBetterCommentsSettings",
-        () => {
-          BetterComments.updateSettings();
-        }
-      )
-    );
-
-    this.context.subscriptions.push(
-      vscode.commands.registerCommand(
-        "dev-pack-salesforce.deleteApexLogs",
-        () => {
-          Sfdx.deleteApexLogs();
-        }
-      )
-    );
+    commands.forEach(({ command, callback }) => {
+      this.context.subscriptions.push(
+        vscode.commands.registerCommand(command, callback)
+      );
+    });
   }
 
   deactivate() {}

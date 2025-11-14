@@ -8,10 +8,7 @@ class ForceCheckPackages {
       "Checking and installing required packages and plugins..."
     );
     context.globalState.update("dev-pack-salesforce.packages-checked", false);
-    context.globalState.update(
-      "dev-pack-salesforce.sf-plugins-checked",
-      false
-    );
+    context.globalState.update("dev-pack-salesforce.sf-plugins-checked", false);
     await NodePackageManager.managePackages(context);
   }
 }

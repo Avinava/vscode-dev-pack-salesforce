@@ -6,18 +6,18 @@ class SfdxScannerInstaller {
     try {
       // Check if sf command is available
       await this.verifySfCliInstalled();
-      
+
       const plugins = await CommonUtils.execCommand("sf plugins");
       const pluginsToInstall = [];
-      
+
       if (!plugins.includes("@salesforce/sfdx-scanner")) {
         pluginsToInstall.push("@salesforce/sfdx-scanner");
       }
-      
+
       if (!plugins.includes("code-analyzer")) {
         pluginsToInstall.push("code-analyzer");
       }
-      
+
       if (pluginsToInstall.length > 0) {
         const userConfirmed = await CommonUtils.promptForConfirmation(
           `The following SF plugins will be installed: ${pluginsToInstall.join(
@@ -64,9 +64,7 @@ class SfdxScannerInstaller {
         `Successfully installed SF plugins: ${pluginsToInstall.join(", ")}`
       );
     } catch (error) {
-      throw new Error(
-        `Failed to install SF plugins: ${error.message}`
-      );
+      throw new Error(`Failed to install SF plugins: ${error.message}`);
     }
   }
 }

@@ -1,13 +1,11 @@
 const vscode = require("vscode");
 const BetterComments = require("./commands/betterComments");
-const ForceCheckPackages = require("./commands/forceCheckPackages");
 
 class InitialSetup {
   static async setup(context) {
     try {
       await this.setInitialTheme(context);
       await this.setBetterComments(context);
-      await ForceCheckPackages.checkPackages(context);
     } catch (error) {
       vscode.window.showErrorMessage(error);
     }

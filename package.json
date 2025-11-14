@@ -33,7 +33,7 @@
     "aaron-bond.better-comments",
     "oderwat.indent-rainbow",
     "streetsidesoftware.code-spell-checker",
-    "ForceConfigControl.lightningflowscanner",
+    "ForceConfigControl.lightning-flow-scanner-vsx",
     "emilast.LogFileHighlighter"
   ],
   "repository": {

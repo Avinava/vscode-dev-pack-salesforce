@@ -16,8 +16,11 @@ class NodePackageManager {
         );
         if (userConfirmed) {
           await this.installMissingPackages(missingPackages);
+        } else {
+          return; // Exit if user doesn't confirm package installation
         }
       }
+      // Only install SF plugins after ensuring @salesforce/cli is installed
       await SfdxScannerInstaller.install(context);
     } catch (error) {
       vscode.window.showErrorMessage(error);

@@ -9,7 +9,7 @@ class ForceCheckPackages {
     );
     context.globalState.update("dev-pack-salesforce.packages-checked", false);
     context.globalState.update(
-      "dev-pack-salesforce.sfdx-scanner-checked",
+      "dev-pack-salesforce.sf-plugins-checked",
       false
     );
     await NodePackageManager.managePackages(context);

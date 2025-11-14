@@ -34,7 +34,8 @@
     "oderwat.indent-rainbow",
     "streetsidesoftware.code-spell-checker",
     "ForceConfigControl.lightning-flow-scanner-vsx",
-    "emilast.LogFileHighlighter"
+    "emilast.LogFileHighlighter",
+    "usernamehw.errorlens"
   ],
   "repository": {
     "type": "git",

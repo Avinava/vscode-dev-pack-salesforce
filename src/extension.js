@@ -9,6 +9,7 @@ const InitialSetup = require("./utils/InitialSetup");
 const Sfdx = require("./commands/Sfdx");
 const EnvironmentCheck = require("./utils/EnvironmentCheck");
 const EnvironmentHealth = require("./commands/EnvironmentHealth");
+const StatusBar = require("./utils/StatusBar");
 
 class Extension {
   constructor(context) {
@@ -19,6 +20,10 @@ class Extension {
     console.log(
       `Congratulations, your extension "${EXTENSION_NAME}" is now active!`
     );
+    
+    // Initialize status bar first for visibility
+    StatusBar.initialize(this.context);
+    
     this.registerCommands();
     await InitialSetup.setup(this.context);
     await NodePackageManager.managePackages(this.context);
@@ -26,6 +31,9 @@ class Extension {
     WorkspaceSettings.checkAndUpdateSettings(this.context);
     // Run environment check after initial setup
     await EnvironmentCheck.runStartupCheck(this.context);
+    
+    // Update status bar after checks
+    await StatusBar.updateStatus();
   }
 
   registerCommands() {
@@ -65,6 +73,14 @@ class Extension {
       {
         command: "dev-pack-salesforce.showProjectInfo",
         callback: () => EnvironmentHealth.showProjectInfo(),
+      },
+      {
+        command: "dev-pack-salesforce.openSfdxProject",
+        callback: () => Sfdx.openSfdxProject(),
+      },
+      {
+        command: "dev-pack-salesforce.refreshOrg",
+        callback: () => Sfdx.refreshOrgMetadata(),
       },
     ];
 

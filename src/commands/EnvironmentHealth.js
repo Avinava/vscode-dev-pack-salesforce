@@ -15,7 +15,7 @@ class EnvironmentHealth {
    */
   static async checkJava() {
     const javaCheck = await EnvironmentCheck.checkJava();
-    
+
     if (!javaCheck.installed) {
       await EnvironmentCheck.promptJavaPathUpdate();
     } else if (!javaCheck.valid) {
@@ -30,7 +30,9 @@ class EnvironmentHealth {
         await EnvironmentCheck.promptJavaPathUpdate();
       } else if (upgrade === "Download Java") {
         vscode.env.openExternal(
-          vscode.Uri.parse("https://developer.salesforce.com/docs/platform/sfvscode-extensions/guide/java-setup.html")
+          vscode.Uri.parse(
+            "https://developer.salesforce.com/docs/platform/sfvscode-extensions/guide/java-setup.html"
+          )
         );
       }
     } else {
@@ -53,7 +55,7 @@ class EnvironmentHealth {
    */
   static async checkNodeJS() {
     const nodeCheck = await EnvironmentCheck.checkNodeJS();
-    
+
     if (!nodeCheck.installed) {
       await EnvironmentCheck.promptNodeJSUpdate(nodeCheck);
     } else if (!nodeCheck.valid) {
@@ -70,7 +72,7 @@ class EnvironmentHealth {
    */
   static async showProjectInfo() {
     const isSFDXProject = await EnvironmentCheck.isSalesforceDXProject();
-    
+
     if (!isSFDXProject) {
       vscode.window.showInformationMessage(
         "This is not a Salesforce DX project. No sfdx-project.json found."
@@ -79,11 +81,9 @@ class EnvironmentHealth {
     }
 
     const projectInfo = await EnvironmentCheck.getSalesforceProjectInfo();
-    
+
     if (!projectInfo) {
-      vscode.window.showErrorMessage(
-        "Unable to read sfdx-project.json file."
-      );
+      vscode.window.showErrorMessage("Unable to read sfdx-project.json file.");
       return;
     }
 

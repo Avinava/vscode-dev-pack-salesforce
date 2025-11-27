@@ -1,5 +1,5 @@
 const vscode = require("vscode");
-const BetterComments = require("./commands/betterComments");
+const BetterComments = require("../commands/BetterComments");
 
 class InitialSetup {
   static async setup(context) {

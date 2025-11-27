@@ -6,12 +6,12 @@ Dev Pack for Salesforce is a collection of useful VS Code extensions for Salesfo
 
 ## Features
 
-- 🔍 **Environment Health Check** - Validates your development environment (Node.js, Java, Salesforce CLI, Prettier)
-- 📦 **Automatic Package Installation** - Detects and installs required npm packages and SF CLI plugins
-- ⚙️ **Auto-Configuration** - Sets up Prettier formatting and Better Comments for Salesforce development
-- 📊 **Status Bar Integration** - Shows environment health status at a glance
-- 🗑️ **Apex Log Management** - Bulk delete Apex logs from your org
-- 🔄 **Quick Metadata Refresh** - Pull metadata from org with quick pick options
+- **Environment Health Check** - Validates your development environment (Node.js, Java, Salesforce CLI, Prettier)
+- **Automatic Package Installation** - Detects and installs required npm packages and SF CLI plugins
+- **Auto-Configuration** - Sets up Prettier formatting and Better Comments for Salesforce development
+- **Status Bar Integration** - Shows environment health status at a glance
+- **Apex Log Management** - Bulk delete Apex logs from your org
+- **Quick Metadata Refresh** - Pull metadata from org with quick pick options
 
 ## Included Extensions
 

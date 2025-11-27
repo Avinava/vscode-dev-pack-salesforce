@@ -2,7 +2,7 @@
   "name": "dev-pack-salesforce",
   "displayName": "Dev Pack for Salesforce",
   "description": "A collection of useful VS Code extensions for Salesforce development",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "publisher": "avidev9",
   "type": "module",
   "scripts": {
@@ -11,7 +11,7 @@
     "prebuild": "yarn clean",
     "build": "npx @vscode/vsce package --out release/",
     "package": "yarn build",
-    "release": "yarn build && echo '✅ Package ready in release/ folder'"
+    "release": "yarn build && echo 'Package ready in release/ folder'"
   },
   "engines": {
     "vscode": "^1.61.0"

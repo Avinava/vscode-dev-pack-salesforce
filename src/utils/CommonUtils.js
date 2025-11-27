@@ -35,7 +35,8 @@ class CommonUtils {
 
   static execCommand(command, options = {}) {
     return new Promise((resolve, reject) => {
-      const workspaceFolder = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
+      const workspaceFolder =
+        vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
       const execOptions = {
         cwd: workspaceFolder,
         maxBuffer: 10 * 1024 * 1024, // 10MB buffer for large outputs

@@ -20,10 +20,10 @@ class Extension {
     console.log(
       `Congratulations, your extension "${EXTENSION_NAME}" is now active!`
     );
-    
+
     // Initialize status bar first for visibility
     StatusBar.initialize(this.context);
-    
+
     this.registerCommands();
     await InitialSetup.setup(this.context);
     await NodePackageManager.managePackages(this.context);
@@ -31,7 +31,7 @@ class Extension {
     WorkspaceSettings.checkAndUpdateSettings(this.context);
     // Run environment check after initial setup
     await EnvironmentCheck.runStartupCheck(this.context);
-    
+
     // Update status bar after checks
     await StatusBar.updateStatus();
   }

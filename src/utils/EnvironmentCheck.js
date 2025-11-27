@@ -304,6 +304,74 @@ class EnvironmentCheck {
   }
 
   /**
+   * Check Prettier and plugins installation
+   */
+  static async checkPrettier() {
+    try {
+      const { stdout } = await execAsync("npm list -g prettier prettier-plugin-apex @prettier/plugin-xml 2>&1");
+      return this.parsePrettierOutput(stdout);
+    } catch (error) {
+      // npm list returns non-zero if packages missing, parse output anyway
+      const output = error.stdout || error.message || "";
+      return this.parsePrettierOutput(output);
+    }
+  }
+
+  /**
+   * Parse Prettier npm list output
+   */
+  static parsePrettierOutput(output) {
+    const hasPrettier = output.includes("prettier@");
+    const hasApexPlugin = output.includes("prettier-plugin-apex") || output.includes("@ilyamatsuev/prettier-plugin-apex");
+    const hasXmlPlugin = output.includes("@prettier/plugin-xml");
+    
+    // Extract version if available
+    const versionMatch = output.match(/prettier@(\d+\.\d+\.\d+)/);
+    const version = versionMatch ? versionMatch[1] : null;
+    
+    const missingPlugins = [];
+    if (!hasApexPlugin) missingPlugins.push("prettier-plugin-apex");
+    if (!hasXmlPlugin) missingPlugins.push("@prettier/plugin-xml");
+    
+    return {
+      installed: hasPrettier,
+      version,
+      hasApexPlugin,
+      hasXmlPlugin,
+      allPlugins: hasPrettier && hasApexPlugin && hasXmlPlugin,
+      missingPlugins,
+    };
+  }
+
+  /**
+   * Prompt to install Prettier and plugins
+   */
+  static async promptPrettierInstall(prettierCheck) {
+    if (prettierCheck.allPlugins) {
+      return true; // Everything is installed
+    }
+
+    const missing = [];
+    if (!prettierCheck.installed) missing.push("prettier");
+    missing.push(...prettierCheck.missingPlugins);
+
+    const install = await vscode.window.showWarningMessage(
+      `${EXTENSION_NAME}: Missing Prettier packages: ${missing.join(", ")}`,
+      "Install Now",
+      "Later"
+    );
+
+    if (install === "Install Now") {
+      const terminal = vscode.window.createTerminal("Prettier Installation");
+      terminal.show();
+      terminal.sendText(`npm install -g ${missing.join(" ")}`);
+      return true;
+    }
+
+    return false;
+  }
+
+  /**
    * Prompt for Node.js installation or update
    */
   static async promptNodeJSUpdate(nodeCheck) {
@@ -395,6 +463,7 @@ class EnvironmentCheck {
       java: null,
       node: null,
       salesforceCLI: null,
+      prettier: null,
       isSFDXProject: false,
       projectInfo: null,
     };
@@ -414,6 +483,9 @@ class EnvironmentCheck {
 
         progress.report({ message: "Checking Salesforce CLI..." });
         results.salesforceCLI = await this.checkSalesforceCLI();
+
+        progress.report({ message: "Checking Prettier..." });
+        results.prettier = await this.checkPrettier();
 
         progress.report({ message: "Checking project type..." });
         results.isSFDXProject = await this.isSalesforceDXProject();
@@ -464,6 +536,15 @@ class EnvironmentCheck {
       info.push(`✅ Salesforce CLI v${results.salesforceCLI.version}`);
     }
 
+    // Prettier check
+    if (!results.prettier.installed) {
+      warnings.push("⚠️  Prettier is not installed (needed for formatting)");
+    } else if (!results.prettier.allPlugins) {
+      warnings.push(`⚠️  Prettier missing plugins: ${results.prettier.missingPlugins.join(", ")}`);
+    } else {
+      info.push(`✅ Prettier v${results.prettier.version} with Apex & XML plugins`);
+    }
+
     // Project info
     if (results.isSFDXProject && results.projectInfo) {
       info.push(`\n📦 SFDX Project: ${results.projectInfo.name}`);
@@ -510,6 +591,10 @@ class EnvironmentCheck {
 
     if (!results.salesforceCLI.installed) {
       await this.promptSalesforceCLIUpdate(results.salesforceCLI);
+    }
+
+    if (!results.prettier.installed || !results.prettier.allPlugins) {
+      await this.promptPrettierInstall(results.prettier);
     }
   }
 

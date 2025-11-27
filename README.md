@@ -6,24 +6,29 @@ Dev Pack for Salesforce is a collection of useful VS Code extensions for Salesfo
 
 ## Included Extensions
 
-- [Salesforce Extension Pack](https://marketplace.visualstudio.com/items?itemName=salesforce.salesforcedx-vscode)
-  - [Salesforce Apex](https://marketplace.visualstudio.com/items?itemName=salesforce.salesforcedx-vscode-apex)
-  - [Salesforce Lightning Web Components](https://marketplace.visualstudio.com/items?itemName=salesforce.salesforcedx-vscode-lwc)
-  - [Salesforce SOQL](https://marketplace.visualstudio.com/items?itemName=salesforce.salesforcedx-vscode-soql)
-  - [Salesforce Core](https://marketplace.visualstudio.com/items?itemName=salesforce.salesforcedx-vscode-core)
-- [Agentforce for Developers](https://marketplace.visualstudio.com/items?itemName=salesforce.salesforcedx-einstein-gpt)
-- [Markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
-- [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-- [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
-- [VSCode Icons](https://marketplace.visualstudio.com/items?itemName=vscode-icons-team.vscode-icons)
-- [One Dark Pro Theme](https://marketplace.visualstudio.com/items?itemName=zhuangtongfa.Material-theme)
-- [Better Comments](https://marketplace.visualstudio.com/items?itemName=aaron-bond.better-comments)
-- [Indent Rainbow](https://marketplace.visualstudio.com/items?itemName=oderwat.indent-rainbow)
-- [Apex Log Analyzer](https://marketplace.visualstudio.com/items?itemName=financialforce.lana)
-- [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
-- [Lightning Flow Scanner](https://marketplace.visualstudio.com/items?itemName=ForceConfigControl.lightningflowscanner)
-- [Salesforce Code Analyzer](https://marketplace.visualstudio.com/items?itemName=salesforce.sfdx-code-analyzer-vscode)
-- [Log File Highlighter](https://marketplace.visualstudio.com/items?itemName=emilast.LogFileHighlighter)
+- [Salesforce Extension Pack](https://marketplace.visualstudio.com/items?itemName=salesforce.salesforcedx-vscode-expanded)
+  - [Salesforce CLI Integration](https://marketplace.visualstudio.com/items?itemName=salesforce.salesforcedx-vscode-core) - This extension (salesforcedx-vscode-core) interacts with Salesforce CLI to provide core functionality.
+  - [Salesforce Apex](https://marketplace.visualstudio.com/items?itemName=salesforce.salesforcedx-vscode-apex) - This extension (salesforcedx-vscode-apex) uses the Apex Language Server to provide features such as syntax highlighting and code completion.
+  - [Apex Interactive Debugger](https://marketplace.visualstudio.com/items?itemName=salesforce.salesforcedx-vscode-apex-debugger) - This extension (salesforcedx-vscode-apex-debugger) enables VS Code to use the real-time Apex Debugger with your scratch orgs or to use ISV Customer Debugger for your subscribers’ orgs.
+  - [Apex Replay Debugger](https://marketplace.visualstudio.com/items?itemName=salesforce.salesforcedx-vscode-apex-replay-debugger) - This extension (salesforcedx-vscode-apex-replay-debugger) enables VS Code to replay Apex execution from Apex debug logs.
+  - [Salesforce Lightning Web Components](https://marketplace.visualstudio.com/items?itemName=salesforce.salesforcedx-vscode-lwc) - This extension supports Lightning web component bundles. It uses the HTML language server from VS Code.
+  - [Aura Components](https://marketplace.visualstudio.com/items?itemName=salesforce.salesforcedx-vscode-lightning) - This extension (salesforcedx-vscode-lightning) supports Aura component bundles. It uses the HTML language server from VS Code.
+  - [Visualforce](https://marketplace.visualstudio.com/items?itemName=salesforce.salesforcedx-vscode-visualforce) - This extension (salesforcedx-vscode-visualforce) supports Visualforce pages and components. It uses the Visualforce Language Server and the HTML language server from VS Code.
+  - [SOQL](https://marketplace.visualstudio.com/items?itemName=salesforce.salesforcedx-vscode-soql) - This extension (salesforcedx-vscode-soql) enables you to interactively build a SOQL query via a form-based visual editor, view the query as you build, and save the output to a .csv or .json file.
+  - [Salesforce Lightning Design System (SLDS) Validator](https://marketplace.visualstudio.com/items?itemName=salesforce.salesforcedx-vscode-slds) - This extension (salesforcedx-vscode-slds) simplifies working with the Salesforce Lightning Design System (SLDS). It provides code completion, syntax highlighting, and validation with recommended tokens and utility classes.
+  - [Agentforce for Developers](https://marketplace.visualstudio.com/items?itemName=salesforce.salesforcedx-einstein-gpt) - This extension (salesforcedx-einstein-gpt) uses generative AI to make Salesforce development in Visual Studio Code richer with features such as natural language to code generation, inline autocompletion for Apex and LWC code, and test case generation for Apex classes.
+  - [Salesforce Code Analyzer](https://marketplace.visualstudio.com/items?itemName=salesforce.sfdx-code-analyzer-vscode) - This extension (sfdx-code-analyzer-vscode) scans your code using multiple rule engines to produce lists of violations that you can use to improve your code.
+  - [Apex Log Analyzer](https://marketplace.visualstudio.com/items?itemName=financialforce.lana) - This extension helps you analyze Apex logs.
+- [One Dark Pro Theme](https://marketplace.visualstudio.com/items?itemName=zhuangtongfa.Material-theme) - A popular dark theme for Visual Studio Code.
+- [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) - An opinionated code formatter that enforces a consistent style.
+- [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) - Integrates ESLint JavaScript into VS Code.
+- [VSCode Icons](https://marketplace.visualstudio.com/items?itemName=vscode-icons-team.vscode-icons) - Adds icons to the Visual Studio Code editor.
+- [Better Comments](https://marketplace.visualstudio.com/items?itemName=aaron-bond.better-comments) - Improves your comment annotations with different colors.
+- [Indent Rainbow](https://marketplace.visualstudio.com/items?itemName=oderwat.indent-rainbow) - Makes indentation levels more readable with color coding.
+- [Markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint) - Provides Markdown linting and style checking.
+- [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) - A basic spell checker that works well with code.
+- [Lightning Flow Scanner](https://marketplace.visualstudio.com/items?itemName=ForceConfigControl.lightningflowscanner) - Scans and validates Salesforce Lightning Flows.
+- [Log File Highlighter](https://marketplace.visualstudio.com/items?itemName=emilast.LogFileHighlighter) - Highlights log files to make them easier to read.
 
 ## Installation
 
@@ -46,7 +51,8 @@ This setup is only done the first time the extension is installed. Feel free to 
 
 ## Automatic Package Detection and Installation
 
-Dev Pack for Salesforce automatically detects and prompts you to install the following required npm packages if they are not already installed:
+The Dev Pack for Salesforce simplifies and automates the setup of your developer environment. Upon installation, the pack automatically detects and installs required npm packages, as long as Node.js is installed in your system. The required npm packages include:
+
 
 - `@salesforce/cli`
 - `prettier`

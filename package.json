@@ -2,7 +2,7 @@
   "name": "dev-pack-salesforce",
   "displayName": "Dev Pack for Salesforce",
   "description": "A collection of useful VS Code extensions for Salesforce development",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "publisher": "avidev9",
   "scripts": {
     "package": "npx vsce package"
@@ -24,8 +24,7 @@
   ],
   "main": "./src/extension.js",
   "extensionPack": [
-    "salesforce.salesforcedx-vscode",
-    "salesforce.salesforcedx-einstein-gpt",
+    "salesforce.salesforcedx-vscode-expanded",
     "davidanson.vscode-markdownlint",
     "esbenp.prettier-vscode",
     "dbaeumer.vscode-eslint",
@@ -33,11 +32,10 @@
     "zhuangtongfa.material-theme",
     "aaron-bond.better-comments",
     "oderwat.indent-rainbow",
-    "financialforce.lana",
     "streetsidesoftware.code-spell-checker",
-    "ForceConfigControl.lightningflowscanner",
-    "salesforce.sfdx-code-analyzer-vscode",
-    "emilast.LogFileHighlighter"
+    "ForceConfigControl.lightning-flow-scanner-vsx",
+    "emilast.LogFileHighlighter",
+    "usernamehw.errorlens"
   ],
   "repository": {
     "type": "git",
@@ -78,6 +76,11 @@
         "command": "dev-pack-salesforce.updateBetterCommentsSettings",
         "title": "Dev Pack for Salesforce: Update better comments settings",
         "shortTitle": "Update better comments settings"
+      },
+      {
+        "command": "dev-pack-salesforce.deleteApexLogs",
+        "title": "Dev Pack for Salesforce: Delete all apex logs",
+        "shortTitle": "Delete all apex logs"
       }
     ]
   }

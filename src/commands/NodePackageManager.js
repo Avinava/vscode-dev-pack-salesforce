@@ -57,7 +57,10 @@ class NodePackageManager {
       return this.getMissingPackages(stdout, packagesToCheck);
     } catch (error) {
       const stdout = error.message || "";
-      const missingPackages = this.getMissingPackages(stdout, REQUIRED_PACKAGES);
+      const missingPackages = this.getMissingPackages(
+        stdout,
+        REQUIRED_PACKAGES
+      );
       if (missingPackages.length === 0) {
         if (!context.globalState.get("dev-pack-salesforce.packages-checked")) {
           CommonUtils.showInformationMessage(
@@ -78,7 +81,7 @@ class NodePackageManager {
     const missingPackages = packagesToInstall.filter(
       (pkg) => !stdout.includes(pkg)
     );
-    
+
     // Special handling for prettier-plugin-apex (check for alternative package)
     const prettierApexIndex = missingPackages.indexOf("prettier-plugin-apex");
     if (prettierApexIndex !== -1) {
@@ -87,7 +90,7 @@ class NodePackageManager {
         missingPackages.splice(prettierApexIndex, 1);
       }
     } else if (
-      !stdout.includes("prettier-plugin-apex") && 
+      !stdout.includes("prettier-plugin-apex") &&
       !stdout.includes("@ilyamatsuev/prettier-plugin-apex") &&
       !missingPackages.includes("prettier-plugin-apex")
     ) {

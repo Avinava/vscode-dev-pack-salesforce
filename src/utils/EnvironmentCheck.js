@@ -40,11 +40,9 @@ class EnvironmentCheck {
   static async getJavaPath() {
     try {
       const isWindows = process.platform === "win32";
-      const command = isWindows
-        ? 'where java'
-        : 'which java';
+      const command = isWindows ? "where java" : "which java";
       const { stdout } = await execAsync(command);
-      return stdout.trim().split('\n')[0];
+      return stdout.trim().split("\n")[0];
     } catch (error) {
       return null;
     }
@@ -69,10 +67,12 @@ class EnvironmentCheck {
             installations.push(match[1].trim());
           }
         }
-        
+
         // Also try to get the default JAVA_HOME
         try {
-          const { stdout: javaHome } = await execAsync("/usr/libexec/java_home");
+          const { stdout: javaHome } = await execAsync(
+            "/usr/libexec/java_home"
+          );
           if (javaHome.trim()) {
             installations.push(javaHome.trim());
           }
@@ -85,14 +85,17 @@ class EnvironmentCheck {
           process.env["ProgramFiles"],
           process.env["ProgramFiles(x86)"],
         ];
-        
+
         for (const pf of programFiles) {
           if (!pf) continue;
           try {
             const javaDir = path.join(pf, "Java");
             const dirs = await fs.readdir(javaDir);
             for (const dir of dirs) {
-              if (dir.toLowerCase().includes("jdk") || dir.toLowerCase().includes("jre")) {
+              if (
+                dir.toLowerCase().includes("jdk") ||
+                dir.toLowerCase().includes("jre")
+              ) {
                 installations.push(path.join(javaDir, dir));
               }
             }
@@ -108,7 +111,7 @@ class EnvironmentCheck {
           "/opt/jdk",
           "/opt/java",
         ];
-        
+
         for (const javaPath of commonPaths) {
           try {
             const dirs = await fs.readdir(javaPath);
@@ -132,23 +135,25 @@ class EnvironmentCheck {
    */
   static async promptJavaPathUpdate() {
     const javaCheck = await this.checkJava();
-    
+
     if (javaCheck.installed && javaCheck.valid) {
       return true; // Java is already configured correctly
     }
 
     const installations = await this.findJavaInstallations();
-    
+
     if (installations.length === 0) {
       const install = await vscode.window.showWarningMessage(
         `${EXTENSION_NAME}: Java 11+ is not installed. Salesforce Apex Language Server requires Java 11 or higher.`,
         "Install Java",
         "Remind Me Later"
       );
-      
+
       if (install === "Install Java") {
         vscode.env.openExternal(
-          vscode.Uri.parse("https://www.oracle.com/java/technologies/downloads/")
+          vscode.Uri.parse(
+            "https://www.oracle.com/java/technologies/downloads/"
+          )
         );
       }
       return false;
@@ -178,16 +183,19 @@ class EnvironmentCheck {
   static async showPathUpdateInstructions(javaPath) {
     const platform = process.platform;
     const binPath = path.join(javaPath, "bin");
-    
+
     let instructions = "";
-    
+
     if (platform === "darwin" || platform === "linux") {
       const shell = process.env.SHELL || "/bin/bash";
-      const configFile = shell.includes("zsh") ? "~/.zshrc" : 
-                        shell.includes("fish") ? "~/.config/fish/config.fish" :
-                        shell.includes("nu") ? "~/.config/nushell/env.nu" :
-                        "~/.bashrc";
-      
+      const configFile = shell.includes("zsh")
+        ? "~/.zshrc"
+        : shell.includes("fish")
+          ? "~/.config/fish/config.fish"
+          : shell.includes("nu")
+            ? "~/.config/nushell/env.nu"
+            : "~/.bashrc";
+
       if (shell.includes("nu")) {
         instructions = `Add this to your ${configFile}:\n\n$env.JAVA_HOME = "${javaPath}"\n$env.PATH = ($env.PATH | prepend "${binPath}")\n\nThen restart your terminal or run: source ${configFile}`;
       } else {
@@ -208,7 +216,9 @@ class EnvironmentCheck {
       CommonUtils.showInformationMessage("Instructions copied to clipboard!");
     } else if (action === "Open Guide") {
       vscode.env.openExternal(
-        vscode.Uri.parse("https://developer.salesforce.com/tools/vscode/en/vscode-desktop/java-setup")
+        vscode.Uri.parse(
+          "https://developer.salesforce.com/tools/vscode/en/vscode-desktop/java-setup"
+        )
       );
     }
   }
@@ -220,7 +230,7 @@ class EnvironmentCheck {
     try {
       const { stdout } = await execAsync("sf --version");
       const versionMatch = stdout.match(/@salesforce\/cli\/(\d+\.\d+\.\d+)/);
-      
+
       if (versionMatch) {
         const version = versionMatch[1];
         return {
@@ -229,7 +239,7 @@ class EnvironmentCheck {
           output: stdout.trim(),
         };
       }
-      
+
       return { installed: true, version: "unknown", output: stdout.trim() };
     } catch (error) {
       return { installed: false, error: error.message };
@@ -254,7 +264,9 @@ class EnvironmentCheck {
         terminal.sendText("npm install -g @salesforce/cli");
       } else if (install === "Download Installer") {
         vscode.env.openExternal(
-          vscode.Uri.parse("https://developer.salesforce.com/tools/salesforcecli")
+          vscode.Uri.parse(
+            "https://developer.salesforce.com/tools/salesforcecli"
+          )
         );
       }
       return false;
@@ -291,7 +303,7 @@ class EnvironmentCheck {
       const { stdout } = await execAsync("node --version");
       const version = stdout.trim().replace("v", "");
       const majorVersion = parseInt(version.split(".")[0]);
-      
+
       return {
         installed: true,
         version: version,
@@ -308,7 +320,9 @@ class EnvironmentCheck {
    */
   static async checkPrettier() {
     try {
-      const { stdout } = await execAsync("npm list -g prettier prettier-plugin-apex @prettier/plugin-xml 2>&1");
+      const { stdout } = await execAsync(
+        "npm list -g prettier prettier-plugin-apex @prettier/plugin-xml 2>&1"
+      );
       return this.parsePrettierOutput(stdout);
     } catch (error) {
       // npm list returns non-zero if packages missing, parse output anyway
@@ -322,17 +336,19 @@ class EnvironmentCheck {
    */
   static parsePrettierOutput(output) {
     const hasPrettier = output.includes("prettier@");
-    const hasApexPlugin = output.includes("prettier-plugin-apex") || output.includes("@ilyamatsuev/prettier-plugin-apex");
+    const hasApexPlugin =
+      output.includes("prettier-plugin-apex") ||
+      output.includes("@ilyamatsuev/prettier-plugin-apex");
     const hasXmlPlugin = output.includes("@prettier/plugin-xml");
-    
+
     // Extract version if available
     const versionMatch = output.match(/prettier@(\d+\.\d+\.\d+)/);
     const version = versionMatch ? versionMatch[1] : null;
-    
+
     const missingPlugins = [];
     if (!hasApexPlugin) missingPlugins.push("prettier-plugin-apex");
     if (!hasXmlPlugin) missingPlugins.push("@prettier/plugin-xml");
-    
+
     return {
       installed: hasPrettier,
       version,
@@ -489,7 +505,7 @@ class EnvironmentCheck {
 
         progress.report({ message: "Checking project type..." });
         results.isSFDXProject = await this.isSalesforceDXProject();
-        
+
         if (results.isSFDXProject) {
           results.projectInfo = await this.getSalesforceProjectInfo();
         }
@@ -540,9 +556,13 @@ class EnvironmentCheck {
     if (!results.prettier.installed) {
       warnings.push("⚠️  Prettier is not installed (needed for formatting)");
     } else if (!results.prettier.allPlugins) {
-      warnings.push(`⚠️  Prettier missing plugins: ${results.prettier.missingPlugins.join(", ")}`);
+      warnings.push(
+        `⚠️  Prettier missing plugins: ${results.prettier.missingPlugins.join(", ")}`
+      );
     } else {
-      info.push(`✅ Prettier v${results.prettier.version} with Apex & XML plugins`);
+      info.push(
+        `✅ Prettier v${results.prettier.version} with Apex & XML plugins`
+      );
     }
 
     // Project info
@@ -561,19 +581,14 @@ class EnvironmentCheck {
         "Fix Issues",
         "Dismiss"
       );
-      
+
       if (action === "Fix Issues") {
         await this.fixEnvironmentIssues(results);
       }
     } else if (warnings.length > 0) {
-      vscode.window.showWarningMessage(
-        `Environment Check:\n${message}`,
-        "OK"
-      );
+      vscode.window.showWarningMessage(`Environment Check:\n${message}`, "OK");
     } else {
-      CommonUtils.showInformationMessage(
-        `Environment Check:\n${message}`
-      );
+      CommonUtils.showInformationMessage(`Environment Check:\n${message}`);
     }
   }
 
@@ -610,7 +625,7 @@ class EnvironmentCheck {
     if (hasRunCheck) {
       // Quick silent check for critical issues only
       const results = await this.runHealthCheck(true);
-      
+
       // Only alert on critical issues
       if (!results.salesforceCLI.installed || !results.node.installed) {
         const action = await vscode.window.showWarningMessage(
@@ -618,7 +633,7 @@ class EnvironmentCheck {
           "Check Now",
           "Dismiss"
         );
-        
+
         if (action === "Check Now") {
           await this.runHealthCheck(false);
         }

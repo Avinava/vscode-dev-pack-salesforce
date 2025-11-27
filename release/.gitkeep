@@ -1,0 +1,2 @@
+# This file ensures the release folder is tracked by git
+# The actual .vsix build artifacts are ignored

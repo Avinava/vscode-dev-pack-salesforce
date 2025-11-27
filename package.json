@@ -5,7 +5,12 @@
   "version": "1.1.0",
   "publisher": "avidev9",
   "scripts": {
-    "package": "npx vsce package"
+    "lint": "eslint src/**/*.js",
+    "clean": "rm -rf release/*.vsix",
+    "prebuild": "yarn clean",
+    "build": "npx @vscode/vsce package --out release/",
+    "package": "yarn build",
+    "release": "yarn build && echo '✅ Package ready in release/ folder'"
   },
   "engines": {
     "vscode": "^1.61.0"

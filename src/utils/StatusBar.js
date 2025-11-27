@@ -63,7 +63,7 @@ class StatusBar {
     // Critical issues
     if (!results.node?.installed) issues.push("Node.js");
     if (!results.salesforceCLI?.installed) issues.push("SF CLI");
-    
+
     // Warnings (non-critical but recommended)
     if (!results.java?.installed) warnings.push("Java");
     if (!results.prettier?.installed) warnings.push("Prettier");
@@ -94,7 +94,8 @@ class StatusBar {
       this.statusBarItem.text = `${SF_ICON} SF Ready`;
       this.statusBarItem.backgroundColor = undefined;
       this.statusBarItem.color = new vscode.ThemeColor("charts.blue");
-      this.statusBarItem.tooltip = "✅ Salesforce environment is healthy\n\n• Node.js ✓\n• SF CLI ✓\n• Java ✓\n• Prettier ✓\n\nClick for details.";
+      this.statusBarItem.tooltip =
+        "✅ Salesforce environment is healthy\n\n• Node.js ✓\n• SF CLI ✓\n• Java ✓\n• Prettier ✓\n\nClick for details.";
       this.isHealthy = true;
     }
 

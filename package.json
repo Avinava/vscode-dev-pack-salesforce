@@ -25,6 +25,7 @@
     "pack"
   ],
   "activationEvents": [
+    "workspaceContains:sfdx-project.json",
     "onStartupFinished"
   ],
   "main": "./src/extension.js",

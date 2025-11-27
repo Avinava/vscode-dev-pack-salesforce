@@ -1,67 +1,62 @@
-const vscode = require("vscode");
-const { EXTENSION_NAME } = require("./utils/constants");
-const NodePackageManager = require("./commands/NodePackageManager");
-const SettingsManager = require("./utils/SettingsManager");
-const WorkspaceSettings = require("./commands/WorkspaceSettings");
-const BetterComments = require("./commands/BetterComments");
-const ForceCheckPackages = require("./commands/ForceCheckPackages");
-const InitialSetup = require("./utils/InitialSetup");
-const Sfdx = require("./commands/Sfdx");
-const EnvironmentCheck = require("./utils/EnvironmentCheck");
-const EnvironmentHealth = require("./commands/EnvironmentHealth");
-const StatusBar = require("./utils/StatusBar");
+import * as vscode from 'vscode';
+import { EXTENSION_NAME, EXTENSION_ID } from './lib/constants.js';
+import * as environmentService from './services/environment.js';
+import * as statusBarService from './services/status-bar.js';
+import * as packageService from './services/packages.js';
+import * as settingsService from './services/settings.js';
+import * as sfdxService from './services/sfdx.js';
+import * as environmentCommands from './features/environment-commands.js';
 
+/**
+ * Main extension class
+ */
 class Extension {
+  /**
+   * @param {vscode.ExtensionContext} context
+   */
   constructor(context) {
     this.context = context;
     this.isSfdxProject = false;
   }
 
+  /**
+   * Activate the extension
+   */
   async activate() {
-    console.log(
-      `Congratulations, your extension "${EXTENSION_NAME}" is now active!`
-    );
+    console.log(`Congratulations, your extension "${EXTENSION_NAME}" is now active!`);
 
     // Check if we're in an SFDX project and set context
-    this.isSfdxProject = await EnvironmentCheck.isSalesforceDXProject();
-    await vscode.commands.executeCommand(
-      "setContext",
-      "sfdx:project_opened",
-      this.isSfdxProject
-    );
+    this.isSfdxProject = await environmentService.isSalesforceDXProject();
+    await vscode.commands.executeCommand('setContext', 'sfdx:project_opened', this.isSfdxProject);
 
     // Always register commands (they'll be hidden via when clauses if not in SFDX project)
     this.registerCommands();
 
     // Run general setup for all workspaces
-    await InitialSetup.setup(this.context);
+    await settingsService.runInitialSetup(this.context);
 
     // Only run SFDX-specific features when in a Salesforce project
     if (this.isSfdxProject) {
-      console.log(
-        `${EXTENSION_NAME}: SFDX project detected, activating Salesforce features`
-      );
+      console.log(`${EXTENSION_NAME}: SFDX project detected, activating Salesforce features`);
 
       // Initialize status bar for SFDX projects
-      StatusBar.initialize(this.context);
+      statusBarService.initialize(this.context);
 
       // Run Salesforce-specific setup
-      await NodePackageManager.managePackages(this.context);
-      await SettingsManager.manageSettings(this.context);
-      WorkspaceSettings.checkAndUpdateSettings(this.context);
+      await packageService.managePackages(this.context);
+      await settingsService.manageSettings(this.context);
+      settingsService.checkAndUpdateWorkspaceSettings(this.context);
 
       // Run environment check after initial setup
-      await EnvironmentCheck.runStartupCheck(this.context);
+      await environmentService.runStartupCheck(this.context);
 
       // Update status bar after checks
-      await StatusBar.updateStatus();
+      await statusBarService.updateStatus();
 
       // Watch for sfdx-project.json changes
       this.watchSfdxProject();
     } else {
-      console.log(
-        `${EXTENSION_NAME}: Not an SFDX project, Salesforce features disabled`
-      );
+      console.log(`${EXTENSION_NAME}: Not an SFDX project, Salesforce features disabled`);
     }
 
     // Watch for workspace folder changes to detect new SFDX projects
@@ -72,9 +67,7 @@ class Extension {
    * Watch for changes to sfdx-project.json
    */
   watchSfdxProject() {
-    const watcher = vscode.workspace.createFileSystemWatcher(
-      "**/sfdx-project.json"
-    );
+    const watcher = vscode.workspace.createFileSystemWatcher('**/sfdx-project.json');
 
     watcher.onDidCreate(async () => {
       console.log(`${EXTENSION_NAME}: sfdx-project.json created`);
@@ -94,7 +87,7 @@ class Extension {
    */
   watchWorkspaceChanges() {
     vscode.workspace.onDidChangeWorkspaceFolders(async () => {
-      const isSfdx = await EnvironmentCheck.isSalesforceDXProject();
+      const isSfdx = await environmentService.isSalesforceDXProject();
       if (isSfdx !== this.isSfdxProject) {
         await this.handleSfdxProjectChange(isSfdx);
       }
@@ -103,98 +96,101 @@ class Extension {
 
   /**
    * Handle SFDX project status change
+   * @param {boolean} isSfdxProject
    */
   async handleSfdxProjectChange(isSfdxProject) {
     this.isSfdxProject = isSfdxProject;
-    await vscode.commands.executeCommand(
-      "setContext",
-      "sfdx:project_opened",
-      this.isSfdxProject
-    );
+    await vscode.commands.executeCommand('setContext', 'sfdx:project_opened', this.isSfdxProject);
 
     if (this.isSfdxProject) {
       // Activate SFDX features
-      StatusBar.initialize(this.context);
-      await StatusBar.updateStatus();
+      statusBarService.initialize(this.context);
+      await statusBarService.updateStatus();
       vscode.window.showInformationMessage(
         `${EXTENSION_NAME}: Salesforce DX project detected! Features activated.`
       );
     } else {
       // Hide status bar when leaving SFDX project
-      if (StatusBar.statusBarItem) {
-        StatusBar.statusBarItem.hide();
-      }
+      statusBarService.hide();
     }
   }
 
+  /**
+   * Register all extension commands
+   */
   registerCommands() {
     const commands = [
       {
-        command: "dev-pack-salesforce.forceCheckPackages",
-        callback: () => ForceCheckPackages.checkPackages(this.context),
+        command: `${EXTENSION_ID}.forceCheckPackages`,
+        callback: () => packageService.forceCheckPackages(this.context),
       },
       {
-        command: "dev-pack-salesforce.updateSettings",
-        callback: () => WorkspaceSettings.updateSettings(),
+        command: `${EXTENSION_ID}.updateSettings`,
+        callback: () => settingsService.updateWorkspaceSettings(),
       },
       {
-        command: "dev-pack-salesforce.updateBetterCommentsSettings",
-        callback: () => BetterComments.updateSettings(),
+        command: `${EXTENSION_ID}.updateBetterCommentsSettings`,
+        callback: () => settingsService.updateBetterCommentsSettings(),
       },
       {
-        command: "dev-pack-salesforce.deleteApexLogs",
-        callback: () => Sfdx.deleteApexLogs(),
+        command: `${EXTENSION_ID}.deleteApexLogs`,
+        callback: () => sfdxService.deleteApexLogs(),
       },
       {
-        command: "dev-pack-salesforce.checkEnvironment",
-        callback: () => EnvironmentHealth.checkEnvironment(),
+        command: `${EXTENSION_ID}.checkEnvironment`,
+        callback: () => environmentCommands.checkEnvironment(),
       },
       {
-        command: "dev-pack-salesforce.checkJava",
-        callback: () => EnvironmentHealth.checkJava(),
+        command: `${EXTENSION_ID}.checkJava`,
+        callback: () => environmentCommands.checkJava(),
       },
       {
-        command: "dev-pack-salesforce.checkSalesforceCLI",
-        callback: () => EnvironmentHealth.checkSalesforceCLI(),
+        command: `${EXTENSION_ID}.checkSalesforceCLI`,
+        callback: () => environmentCommands.checkSalesforceCLI(),
       },
       {
-        command: "dev-pack-salesforce.checkNodeJS",
-        callback: () => EnvironmentHealth.checkNodeJS(),
+        command: `${EXTENSION_ID}.checkNodeJS`,
+        callback: () => environmentCommands.checkNodeJS(),
       },
       {
-        command: "dev-pack-salesforce.showProjectInfo",
-        callback: () => EnvironmentHealth.showProjectInfo(),
+        command: `${EXTENSION_ID}.showProjectInfo`,
+        callback: () => environmentCommands.showProjectInfo(),
       },
       {
-        command: "dev-pack-salesforce.openSfdxProject",
-        callback: () => Sfdx.openSfdxProject(),
+        command: `${EXTENSION_ID}.openSfdxProject`,
+        callback: () => sfdxService.openSfdxProject(),
       },
       {
-        command: "dev-pack-salesforce.refreshOrg",
-        callback: () => Sfdx.refreshOrgMetadata(),
+        command: `${EXTENSION_ID}.refreshOrg`,
+        callback: () => sfdxService.refreshOrgMetadata(),
       },
     ];
 
     commands.forEach(({ command, callback }) => {
-      this.context.subscriptions.push(
-        vscode.commands.registerCommand(command, callback)
-      );
+      this.context.subscriptions.push(vscode.commands.registerCommand(command, callback));
     });
   }
 
-  deactivate() {}
+  /**
+   * Deactivate the extension
+   */
+  deactivate() {
+    // Cleanup if needed
+  }
 }
 
-function activate(context) {
+/**
+ * Extension activation entry point
+ * @param {vscode.ExtensionContext} context
+ */
+export function activate(context) {
   const extension = new Extension(context);
   extension.activate();
 }
 
-function deactivate() {
+/**
+ * Extension deactivation entry point
+ */
+export function deactivate() {
   // Add any cleanup logic here if needed
 }
-
-module.exports = {
-  activate,
-  deactivate,
-};

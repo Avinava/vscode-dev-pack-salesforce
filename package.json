@@ -4,6 +4,7 @@
   "description": "A collection of useful VS Code extensions for Salesforce development",
   "version": "1.1.0",
   "publisher": "avidev9",
+  "type": "module",
   "scripts": {
     "lint": "eslint src/**/*.js",
     "clean": "rm -rf release/*.vsix",
@@ -49,6 +50,7 @@
   },
   "icon": "assets/icon.jpeg",
   "devDependencies": {
+    "@eslint/js": "^9.39.1",
     "@vscode/vsce": "^3.2.1",
     "eslint": "^9.13.0",
     "tslint": "^6.1.3",

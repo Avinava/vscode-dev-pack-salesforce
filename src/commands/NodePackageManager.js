@@ -2,6 +2,7 @@ const vscode = require("vscode");
 const { EXTENSION_NAME, REQUIRED_PACKAGES } = require("../utils/constants");
 const SfdxScannerInstaller = require("./SfdxScannerInstaller");
 const CommonUtils = require("../utils/CommonUtils");
+const EnvironmentCheck = require("../utils/EnvironmentCheck");
 
 class NodePackageManager {
   static async managePackages(context) {
@@ -28,9 +29,8 @@ class NodePackageManager {
   }
 
   static async checkNodeInstallation() {
-    try {
-      await CommonUtils.execCommand("node -v");
-    } catch (error) {
+    const nodeCheck = await EnvironmentCheck.checkNodeJS();
+    if (!nodeCheck.installed) {
       throw new Error(
         `${EXTENSION_NAME}: Node.js is not installed. Please install Node.js to use this extension.`
       );
@@ -54,10 +54,9 @@ class NodePackageManager {
         );
       }
 
-      const missingPackages = this.getMissingPackages(stdout, packagesToCheck);
-      return missingPackages;
+      return this.getMissingPackages(stdout, packagesToCheck);
     } catch (error) {
-      const stdout = error.message;
+      const stdout = error.message || "";
       const missingPackages = this.getMissingPackages(
         stdout,
         REQUIRED_PACKAGES
@@ -78,15 +77,24 @@ class NodePackageManager {
   }
 
   static getMissingPackages(stdout, packagesToInstall) {
+    // Filter out packages that are already installed
     const missingPackages = packagesToInstall.filter(
       (pkg) => !stdout.includes(pkg)
     );
-    const hasPrettierPluginApex = stdout.includes("prettier-plugin-apex");
-    const hasIlyamatsuevPrettierPluginApex = stdout.includes(
-      "@ilyamatsuev/prettier-plugin-apex"
-    );
 
-    if (!hasPrettierPluginApex && !hasIlyamatsuevPrettierPluginApex) {
+    // Special handling for prettier-plugin-apex (check for alternative package)
+    const prettierApexIndex = missingPackages.indexOf("prettier-plugin-apex");
+    if (prettierApexIndex !== -1) {
+      // Check if the alternative ilyamatsuev package is installed
+      if (stdout.includes("@ilyamatsuev/prettier-plugin-apex")) {
+        missingPackages.splice(prettierApexIndex, 1);
+      }
+    } else if (
+      !stdout.includes("prettier-plugin-apex") &&
+      !stdout.includes("@ilyamatsuev/prettier-plugin-apex") &&
+      !missingPackages.includes("prettier-plugin-apex")
+    ) {
+      // Neither version is installed, add to missing
       missingPackages.push("prettier-plugin-apex");
     }
 

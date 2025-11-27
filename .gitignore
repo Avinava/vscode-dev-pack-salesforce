@@ -7,6 +7,10 @@ yarn-error.log*
 lerna-debug.log*
 .pnpm-debug.log*
 
+# VS Code Extension builds
+*.vsix
+release/*.vsix
+
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 

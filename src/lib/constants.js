@@ -1,19 +1,34 @@
-const EXTENSION_NAME = "Dev Pack for Salesforce";
-const APEX_SETTINGS = {
+/**
+ * Extension constants and configuration values
+ */
+
+export const EXTENSION_NAME = "Dev Pack for Salesforce";
+export const EXTENSION_ID = "dev-pack-salesforce";
+
+/**
+ * Editor settings for Apex files
+ */
+export const APEX_SETTINGS = {
   "editor.formatOnSave": true,
   "editor.formatOnPaste": true,
   "editor.detectIndentation": false,
   "editor.tabSize": 2,
 };
 
-const JAVASCRIPT_SETTINGS = {
+/**
+ * Editor settings for JavaScript files
+ */
+export const JAVASCRIPT_SETTINGS = {
   "editor.formatOnSave": true,
   "editor.formatOnPaste": true,
   "editor.detectIndentation": false,
   "editor.tabSize": 2,
 };
 
-const BETTER_COMMENTS_TAG = [
+/**
+ * Better Comments tag configuration
+ */
+export const BETTER_COMMENTS_TAGS = [
   {
     tag: "!",
     color: "#FF2D00",
@@ -115,17 +130,12 @@ const BETTER_COMMENTS_TAG = [
   },
 ];
 
-const REQUIRED_PACKAGES = [
-  "@salesforce/cli",
-  "prettier",
-  "@prettier/plugin-xml",
-  "prettier-plugin-apex",
-];
-
-module.exports = {
-  EXTENSION_NAME,
-  BETTER_COMMENTS_TAG,
-  APEX_SETTINGS,
-  JAVASCRIPT_SETTINGS,
-  REQUIRED_PACKAGES,
+/**
+ * Global state keys used by the extension
+ */
+export const STATE_KEYS = {
+  WORKSPACE_INITIALIZED: `${EXTENSION_ID}.workspace-initialized`,
+  THEME_SET: `${EXTENSION_ID}.has-theme-set`,
+  BETTER_COMMENTS_SET: `${EXTENSION_ID}.has-better-comments-set`,
+  PROMPTED_AUTO_UPDATE: `${EXTENSION_ID}.promptedForAutoUpdate`,
 };

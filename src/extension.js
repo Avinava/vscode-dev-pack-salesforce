@@ -1,7 +1,7 @@
-import * as vscode from 'vscode';
-import { EXTENSION_NAME, EXTENSION_ID } from './lib/constants.js';
-import * as settingsService from './services/settings.js';
-import * as sfdxService from './services/sfdx.js';
+import * as vscode from "vscode";
+import { EXTENSION_NAME, EXTENSION_ID } from "./lib/constants.js";
+import * as settingsService from "./services/settings.js";
+import * as sfdxService from "./services/sfdx.js";
 
 /**
  * Main extension class
@@ -19,11 +19,17 @@ class Extension {
    * Activate the extension
    */
   async activate() {
-    console.log(`Congratulations, your extension "${EXTENSION_NAME}" is now active!`);
+    console.log(
+      `Congratulations, your extension "${EXTENSION_NAME}" is now active!`
+    );
 
     // Check if we're in an SFDX project and set context
     this.isSfdxProject = await sfdxService.isSalesforceDXProject();
-    await vscode.commands.executeCommand('setContext', 'sfdx:project_opened', this.isSfdxProject);
+    await vscode.commands.executeCommand(
+      "setContext",
+      "sfdx:project_opened",
+      this.isSfdxProject
+    );
 
     // Always register commands (they'll be hidden via when clauses if not in SFDX project)
     this.registerCommands();
@@ -33,7 +39,9 @@ class Extension {
 
     // Only run SFDX-specific features when in a Salesforce project
     if (this.isSfdxProject) {
-      console.log(`${EXTENSION_NAME}: SFDX project detected, activating Salesforce features`);
+      console.log(
+        `${EXTENSION_NAME}: SFDX project detected, activating Salesforce features`
+      );
 
       // Run Salesforce-specific setup
       await settingsService.manageSettings(this.context);
@@ -42,7 +50,9 @@ class Extension {
       // Watch for sfdx-project.json changes
       this.watchSfdxProject();
     } else {
-      console.log(`${EXTENSION_NAME}: Not an SFDX project, Salesforce features disabled`);
+      console.log(
+        `${EXTENSION_NAME}: Not an SFDX project, Salesforce features disabled`
+      );
     }
 
     // Watch for workspace folder changes to detect new SFDX projects
@@ -53,7 +63,9 @@ class Extension {
    * Watch for changes to sfdx-project.json
    */
   watchSfdxProject() {
-    const watcher = vscode.workspace.createFileSystemWatcher('**/sfdx-project.json');
+    const watcher = vscode.workspace.createFileSystemWatcher(
+      "**/sfdx-project.json"
+    );
 
     watcher.onDidCreate(async () => {
       console.log(`${EXTENSION_NAME}: sfdx-project.json created`);
@@ -86,7 +98,11 @@ class Extension {
    */
   async handleSfdxProjectChange(isSfdxProject) {
     this.isSfdxProject = isSfdxProject;
-    await vscode.commands.executeCommand('setContext', 'sfdx:project_opened', this.isSfdxProject);
+    await vscode.commands.executeCommand(
+      "setContext",
+      "sfdx:project_opened",
+      this.isSfdxProject
+    );
 
     if (this.isSfdxProject) {
       vscode.window.showInformationMessage(
@@ -123,7 +139,9 @@ class Extension {
     ];
 
     commands.forEach(({ command, callback }) => {
-      this.context.subscriptions.push(vscode.commands.registerCommand(command, callback));
+      this.context.subscriptions.push(
+        vscode.commands.registerCommand(command, callback)
+      );
     });
   }
 

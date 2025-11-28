@@ -6,12 +6,10 @@ Dev Pack for Salesforce is a collection of useful VS Code extensions for Salesfo
 
 ## Features
 
-- **Environment Health Check** - Validates your development environment (Node.js, Java, Salesforce CLI, Prettier)
-- **Automatic Package Installation** - Detects and installs required npm packages and SF CLI plugins
 - **Auto-Configuration** - Sets up Prettier formatting and Better Comments for Salesforce development
-- **Status Bar Integration** - Shows environment health status at a glance
 - **Apex Log Management** - Bulk delete Apex logs from your org
 - **Quick Metadata Refresh** - Pull metadata from org with quick pick options
+- **Environment Health Check** - Via bundled [SF Preflight](https://marketplace.visualstudio.com/items?itemName=avidev9.sf-preflight) extension
 
 ## Included Extensions
 
@@ -38,6 +36,7 @@ Dev Pack for Salesforce is a collection of useful VS Code extensions for Salesfo
 - [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) - A basic spell checker that works well with code.
 - [Lightning Flow Scanner](https://marketplace.visualstudio.com/items?itemName=ForceConfigControl.lightningflowscanner) - Scans and validates Salesforce Lightning Flows.
 - [Log File Highlighter](https://marketplace.visualstudio.com/items?itemName=emilast.LogFileHighlighter) - Highlights log files to make them easier to read.
+- [SF Preflight](https://marketplace.visualstudio.com/items?itemName=avidev9.sf-preflight) - Environment health checks and setup verification for Salesforce development.
 
 ## Installation
 
@@ -57,32 +56,6 @@ On the first installation, Dev Pack for Salesforce automatically sets the follow
 <img src="./assets/vscode-icons.png" height="250px"/>
 
 This setup is only done the first time the extension is installed. Feel free to change after the initial setup.
-
-## Automatic Package Detection and Installation
-
-The Dev Pack for Salesforce simplifies and automates the setup of your developer environment. Upon installation, the pack automatically detects and installs required npm packages, as long as Node.js is installed in your system. The required npm packages include:
-
-
-- `@salesforce/cli`
-- `prettier`
-- `@prettier/plugin-xml`
-- `prettier-plugin-apex`
-
-### Manual Trigger
-
-You can manually trigger the package installation process by running the following command:
-
-```json
-{
-  "command": "dev-pack-salesforce.forceCheckPackages",
-  "title": "Dev Pack for Salesforce: Install required node modules"
-}
-```
-
-To run this command:
-
-- Open the Command Palette (View → Command Palette or Cmd+Shift+P).
-- Type Dev Pack for Salesforce: Install required node modules and select it.
 
 ## Update Prettier Settings
 

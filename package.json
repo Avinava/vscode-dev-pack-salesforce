@@ -43,7 +43,8 @@
     "ForceConfigControl.lightning-flow-scanner-vsx",
     "emilast.LogFileHighlighter",
     "usernamehw.errorlens",
-    "avidev9.sf-preflight"
+    "avidev9.sf-preflight",
+    "avidev9.sf-metadata-tracker"
   ],
   "repository": {
     "type": "git",

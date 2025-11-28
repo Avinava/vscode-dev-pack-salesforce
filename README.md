@@ -37,6 +37,7 @@ Dev Pack for Salesforce is a collection of useful VS Code extensions for Salesfo
 - [Lightning Flow Scanner](https://marketplace.visualstudio.com/items?itemName=ForceConfigControl.lightningflowscanner) - Scans and validates Salesforce Lightning Flows.
 - [Log File Highlighter](https://marketplace.visualstudio.com/items?itemName=emilast.LogFileHighlighter) - Highlights log files to make them easier to read.
 - [SF Preflight](https://marketplace.visualstudio.com/items?itemName=avidev9.sf-preflight) - Environment health checks and setup verification for Salesforce development.
+- [SF Metadata Tracker](https://marketplace.visualstudio.com/items?itemName=avidev9.sf-metadata-tracker) - Track and monitor Salesforce metadata changes in your org.
 
 ## Installation
 

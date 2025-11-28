@@ -12,6 +12,29 @@ import * as ui from '../lib/ui.js';
 const APEX_LOG_FILE = 'apexlog-out.csv';
 
 /**
+ * Check if current workspace is a Salesforce DX project
+ * @returns {Promise<boolean>}
+ */
+export async function isSalesforceDXProject() {
+  const workspaceFolders = vscode.workspace.workspaceFolders;
+  if (!workspaceFolders) {
+    return false;
+  }
+
+  for (const folder of workspaceFolders) {
+    const sfdxProjectPath = path.join(folder.uri.fsPath, 'sfdx-project.json');
+    try {
+      await fs.access(sfdxProjectPath);
+      return true;
+    } catch {
+      // File doesn't exist, continue checking
+    }
+  }
+
+  return false;
+}
+
+/**
  * Delete all Apex logs from the connected org
  */
 export async function deleteApexLogs() {

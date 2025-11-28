@@ -3,4 +3,4 @@
  * Re-exports all command handlers
  */
 
-export * as environmentCommands from './environment-commands.js';
+// Environment commands moved to sf-preflight extension

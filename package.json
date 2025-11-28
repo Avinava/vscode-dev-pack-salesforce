@@ -2,7 +2,7 @@
   "name": "dev-pack-salesforce",
   "displayName": "Dev Pack for Salesforce",
   "description": "A collection of useful VS Code extensions for Salesforce development",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "publisher": "avidev9",
   "type": "module",
   "scripts": {
@@ -42,7 +42,8 @@
     "streetsidesoftware.code-spell-checker",
     "ForceConfigControl.lightning-flow-scanner-vsx",
     "emilast.LogFileHighlighter",
-    "usernamehw.errorlens"
+    "usernamehw.errorlens",
+    "avidev9.sf-preflight"
   ],
   "repository": {
     "type": "git",
@@ -67,16 +68,6 @@
           "default": false,
           "description": "Automatically update prettier settings for new sfdx projects"
         },
-        "devPackSalesforce.showStatusBar": {
-          "type": "boolean",
-          "default": true,
-          "description": "Show Salesforce environment status in the status bar"
-        },
-        "devPackSalesforce.runHealthCheckOnStartup": {
-          "type": "boolean",
-          "default": true,
-          "description": "Run environment health check when VS Code starts"
-        },
         "devPackSalesforce.autoDeleteApexLogs": {
           "type": "boolean",
           "default": false,
@@ -90,12 +81,6 @@
       }
     },
     "commands": [
-      {
-        "command": "dev-pack-salesforce.forceCheckPackages",
-        "title": "Dev Pack for Salesforce: Install required node modules",
-        "shortTitle": "Install required node modules",
-        "icon": "$(package)"
-      },
       {
         "command": "dev-pack-salesforce.updateSettings",
         "title": "Dev Pack for Salesforce: Update prettier formatting settings",
@@ -115,36 +100,6 @@
         "icon": "$(trash)"
       },
       {
-        "command": "dev-pack-salesforce.checkEnvironment",
-        "title": "Dev Pack for Salesforce: Check Environment Health",
-        "shortTitle": "Check Environment",
-        "icon": "$(heart)"
-      },
-      {
-        "command": "dev-pack-salesforce.checkJava",
-        "title": "Dev Pack for Salesforce: Check Java Installation",
-        "shortTitle": "Check Java",
-        "icon": "$(symbol-method)"
-      },
-      {
-        "command": "dev-pack-salesforce.checkSalesforceCLI",
-        "title": "Dev Pack for Salesforce: Check Salesforce CLI",
-        "shortTitle": "Check SF CLI",
-        "icon": "$(cloud)"
-      },
-      {
-        "command": "dev-pack-salesforce.checkNodeJS",
-        "title": "Dev Pack for Salesforce: Check Node.js Installation",
-        "shortTitle": "Check Node.js",
-        "icon": "$(symbol-event)"
-      },
-      {
-        "command": "dev-pack-salesforce.showProjectInfo",
-        "title": "Dev Pack for Salesforce: Show Project Info",
-        "shortTitle": "Project Info",
-        "icon": "$(info)"
-      },
-      {
         "command": "dev-pack-salesforce.openSfdxProject",
         "title": "Dev Pack for Salesforce: Open sfdx-project.json",
         "shortTitle": "Open sfdx-project.json",
@@ -161,10 +116,6 @@
       "commandPalette": [
         {
           "command": "dev-pack-salesforce.deleteApexLogs",
-          "when": "sfdx:project_opened"
-        },
-        {
-          "command": "dev-pack-salesforce.showProjectInfo",
           "when": "sfdx:project_opened"
         },
         {

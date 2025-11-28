@@ -1,11 +1,7 @@
 import * as vscode from 'vscode';
 import { EXTENSION_NAME, EXTENSION_ID } from './lib/constants.js';
-import * as environmentService from './services/environment.js';
-import * as statusBarService from './services/status-bar.js';
-import * as packageService from './services/packages.js';
 import * as settingsService from './services/settings.js';
 import * as sfdxService from './services/sfdx.js';
-import * as environmentCommands from './features/environment-commands.js';
 
 /**
  * Main extension class
@@ -26,7 +22,7 @@ class Extension {
     console.log(`Congratulations, your extension "${EXTENSION_NAME}" is now active!`);
 
     // Check if we're in an SFDX project and set context
-    this.isSfdxProject = await environmentService.isSalesforceDXProject();
+    this.isSfdxProject = await sfdxService.isSalesforceDXProject();
     await vscode.commands.executeCommand('setContext', 'sfdx:project_opened', this.isSfdxProject);
 
     // Always register commands (they'll be hidden via when clauses if not in SFDX project)
@@ -39,19 +35,9 @@ class Extension {
     if (this.isSfdxProject) {
       console.log(`${EXTENSION_NAME}: SFDX project detected, activating Salesforce features`);
 
-      // Initialize status bar for SFDX projects
-      statusBarService.initialize(this.context);
-
       // Run Salesforce-specific setup
-      await packageService.managePackages(this.context);
       await settingsService.manageSettings(this.context);
       settingsService.checkAndUpdateWorkspaceSettings(this.context);
-
-      // Run environment check after initial setup
-      await environmentService.runStartupCheck(this.context);
-
-      // Update status bar after checks
-      await statusBarService.updateStatus();
 
       // Watch for sfdx-project.json changes
       this.watchSfdxProject();
@@ -87,7 +73,7 @@ class Extension {
    */
   watchWorkspaceChanges() {
     vscode.workspace.onDidChangeWorkspaceFolders(async () => {
-      const isSfdx = await environmentService.isSalesforceDXProject();
+      const isSfdx = await sfdxService.isSalesforceDXProject();
       if (isSfdx !== this.isSfdxProject) {
         await this.handleSfdxProjectChange(isSfdx);
       }
@@ -103,15 +89,9 @@ class Extension {
     await vscode.commands.executeCommand('setContext', 'sfdx:project_opened', this.isSfdxProject);
 
     if (this.isSfdxProject) {
-      // Activate SFDX features
-      statusBarService.initialize(this.context);
-      await statusBarService.updateStatus();
       vscode.window.showInformationMessage(
         `${EXTENSION_NAME}: Salesforce DX project detected! Features activated.`
       );
-    } else {
-      // Hide status bar when leaving SFDX project
-      statusBarService.hide();
     }
   }
 
@@ -120,10 +100,6 @@ class Extension {
    */
   registerCommands() {
     const commands = [
-      {
-        command: `${EXTENSION_ID}.forceCheckPackages`,
-        callback: () => packageService.forceCheckPackages(this.context),
-      },
       {
         command: `${EXTENSION_ID}.updateSettings`,
         callback: () => settingsService.updateWorkspaceSettings(),
@@ -135,26 +111,6 @@ class Extension {
       {
         command: `${EXTENSION_ID}.deleteApexLogs`,
         callback: () => sfdxService.deleteApexLogs(),
-      },
-      {
-        command: `${EXTENSION_ID}.checkEnvironment`,
-        callback: () => environmentCommands.checkEnvironment(),
-      },
-      {
-        command: `${EXTENSION_ID}.checkJava`,
-        callback: () => environmentCommands.checkJava(),
-      },
-      {
-        command: `${EXTENSION_ID}.checkSalesforceCLI`,
-        callback: () => environmentCommands.checkSalesforceCLI(),
-      },
-      {
-        command: `${EXTENSION_ID}.checkNodeJS`,
-        callback: () => environmentCommands.checkNodeJS(),
-      },
-      {
-        command: `${EXTENSION_ID}.showProjectInfo`,
-        callback: () => environmentCommands.showProjectInfo(),
       },
       {
         command: `${EXTENSION_ID}.openSfdxProject`,

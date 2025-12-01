@@ -2,7 +2,7 @@
   "name": "dev-pack-salesforce",
   "displayName": "Dev Pack for Salesforce",
   "description": "A collection of useful VS Code extensions for Salesforce development",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "publisher": "avidev9",
   "type": "module",
   "scripts": {
@@ -33,7 +33,7 @@
   "extensionPack": [
     "salesforce.salesforcedx-vscode-expanded",
     "davidanson.vscode-markdownlint",
-    "esbenp.prettier-vscode",
+    "prettier.prettier-vscode",
     "dbaeumer.vscode-eslint",
     "vscode-icons-team.vscode-icons",
     "zhuangtongfa.material-theme",
@@ -44,7 +44,8 @@
     "emilast.LogFileHighlighter",
     "usernamehw.errorlens",
     "avidev9.sf-preflight",
-    "avidev9.sf-metadata-tracker"
+    "avidev9.sf-metadata-tracker",
+    "avidev9.sf-flow-visualizer"
   ],
   "repository": {
     "type": "git",

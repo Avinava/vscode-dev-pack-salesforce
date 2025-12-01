@@ -27,17 +27,19 @@ Dev Pack for Salesforce is a collection of useful VS Code extensions for Salesfo
   - [Salesforce Code Analyzer](https://marketplace.visualstudio.com/items?itemName=salesforce.sfdx-code-analyzer-vscode) - This extension (sfdx-code-analyzer-vscode) scans your code using multiple rule engines to produce lists of violations that you can use to improve your code.
   - [Apex Log Analyzer](https://marketplace.visualstudio.com/items?itemName=financialforce.lana) - This extension helps you analyze Apex logs.
 - [One Dark Pro Theme](https://marketplace.visualstudio.com/items?itemName=zhuangtongfa.Material-theme) - A popular dark theme for Visual Studio Code.
-- [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) - An opinionated code formatter that enforces a consistent style.
+- [Prettier](https://marketplace.visualstudio.com/items?itemName=prettier.prettier-vscode) - An opinionated code formatter that enforces a consistent style.
 - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) - Integrates ESLint JavaScript into VS Code.
 - [VSCode Icons](https://marketplace.visualstudio.com/items?itemName=vscode-icons-team.vscode-icons) - Adds icons to the Visual Studio Code editor.
 - [Better Comments](https://marketplace.visualstudio.com/items?itemName=aaron-bond.better-comments) - Improves your comment annotations with different colors.
 - [Indent Rainbow](https://marketplace.visualstudio.com/items?itemName=oderwat.indent-rainbow) - Makes indentation levels more readable with color coding.
 - [Markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint) - Provides Markdown linting and style checking.
 - [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) - A basic spell checker that works well with code.
-- [Lightning Flow Scanner](https://marketplace.visualstudio.com/items?itemName=ForceConfigControl.lightningflowscanner) - Scans and validates Salesforce Lightning Flows.
+- [Lightning Flow Scanner](https://marketplace.visualstudio.com/items?itemName=ForceConfigControl.lightning-flow-scanner-vsx) - Scans and validates Salesforce Lightning Flows.
 - [Log File Highlighter](https://marketplace.visualstudio.com/items?itemName=emilast.LogFileHighlighter) - Highlights log files to make them easier to read.
+- [Error Lens](https://marketplace.visualstudio.com/items?itemName=usernamehw.errorlens) - Improves highlighting of errors, warnings and other language diagnostics.
 - [SF Preflight](https://marketplace.visualstudio.com/items?itemName=avidev9.sf-preflight) - Environment health checks and setup verification for Salesforce development.
 - [SF Metadata Tracker](https://marketplace.visualstudio.com/items?itemName=avidev9.sf-metadata-tracker) - Track and monitor Salesforce metadata changes in your org.
+- [SF Flow Visualizer](https://marketplace.visualstudio.com/items?itemName=avidev9.sf-flow-visualizer) - Visualize and analyze Salesforce Flow metadata with an interactive diagram.
 
 ## Installation
 

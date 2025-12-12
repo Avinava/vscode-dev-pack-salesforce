@@ -13,6 +13,7 @@ export const APEX_SETTINGS = {
   "editor.formatOnPaste": true,
   "editor.detectIndentation": false,
   "editor.tabSize": 2,
+  "editor.defaultFormatter": "Prettier.prettier-vscode",
 };
 
 /**
@@ -23,6 +24,7 @@ export const JAVASCRIPT_SETTINGS = {
   "editor.formatOnPaste": true,
   "editor.detectIndentation": false,
   "editor.tabSize": 2,
+  "editor.defaultFormatter": "Prettier.prettier-vscode",
 };
 
 /**

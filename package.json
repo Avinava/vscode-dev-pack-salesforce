@@ -2,7 +2,7 @@
   "name": "dev-pack-salesforce",
   "displayName": "Dev Pack for Salesforce",
   "description": "A collection of useful VS Code extensions for Salesforce development",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "publisher": "avidev9",
   "type": "module",
   "scripts": {
